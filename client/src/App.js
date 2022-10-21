@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Chirp } from './components/Chirp';
+import { Header } from './components/Header';
+import { Home } from './pages/Home';
 import { LoginSignup } from './pages/LoginSignup';
+import { User } from './pages/User';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -23,7 +25,13 @@ function App() {
   //   "find people"
 
   return (
-    <div className="App">
+    <div className="App row">
+      <Header user={user}/>
+
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/:username" element={<User/>}/>
+      </Routes>
     </div>
   );
 }

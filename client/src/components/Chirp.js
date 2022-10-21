@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import '../style/chirp.css';
 
+export function Chirps({chirp_ids}){
+  return <div className="col chirps">
+    { chirp_ids.map(chirp_id=><Chirp id={chirp_id} key={chirp_id}/>) }
+  </div>
+}
+
 const fixTextarea = (id)=>{
   let chirpTextNode = document.querySelector(`.chirpID_${id} > .chirp_content_container > textarea.chirp_text`)
   chirpTextNode.style.height = chirpTextNode.scrollHeight - 3 + "px"
