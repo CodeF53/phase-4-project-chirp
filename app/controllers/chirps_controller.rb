@@ -32,7 +32,7 @@ class ChirpsController < ApplicationController
   # GET /feed
   def feed
     # TODO: once follows relations are fixed uncomment this next line
-    render json: @current_user.chirps.map(&:id) # + @current_user.followed_users.chirps.map(&:id)
+    render json: @current_user.chirps.map(&:id).sort.reverse # + @current_user.followed_users.chirps.map(&:id)
   end
 
   private
