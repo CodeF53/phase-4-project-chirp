@@ -11,22 +11,10 @@ export function Chirp({id}) {
   const [chirp, setChirp] = useState({ text:"", attachment:"", reply_chirp_id:null, unix_timestamp:0, user: { display_name:"", username:"", icon:"" }  })
 
   useEffect(() => {
-    setChirp({
-      text:"The British decided to turn off Big Ben for a couple of years thinking there would be no consequences.\n\nYOU'VE ANGERED YOUR CLOCK GOD",
-      attachment:"",
-      reply_chirp_id:null,
-      unix_timestamp:1666287600,
-      user: {
-        display_name:"Mr. Kilian",
-        username: "KilExperience",
-        icon:"https://pbs.twimg.com/profile_images/1145405999915896833/EKG4Tujc_400x400.png"
-      }
-    })
-    // fetch data
-    // fetch(`chirps/${id}`).then(r=>r.json()).then(data=>{
-      // setChirp(data)
+    fetch(`chirps/${id}`).then(r=>r.json()).then(data=>{
+      setChirp(data)
       setTimeout(()=>{fixTextarea(id)}, 10)
-    // })
+    })
 
     function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
     window.addEventListener("resize", handleResize)
