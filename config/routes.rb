@@ -6,10 +6,12 @@ Rails.application.routes.draw do
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#me'
-  get '/feed', to: 'users#feed'
-  get '/users/:id', to: 'users#show'
-  get '/users', to: 'users#index'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  
+  
+  get '/users/:username', to: 'users#show'
+  get '/feed', to: 'users#feed'
+  get '/users', to: 'users#index'
   get '/feed', to: 'users#feed'
 end
