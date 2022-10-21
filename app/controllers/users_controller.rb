@@ -3,12 +3,22 @@ class UsersController < ApplicationController
 
   def create
     user = User.create!(user_params)
+    user.update(display_name: user.username)
     session[:user_id] = user.id
     render json: user, status: :created
   end
 
+  def me
+    render json: @current_user, status: :ok
+  end
+
   def show
-    render json: @current_user
+    user = User.find(params[:id])
+    render json: user, status: :ok
+  end
+
+  def feed
+    render json: Chirp.all, status: :ok 
   end
 
   private

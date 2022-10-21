@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.string "attachment"
     t.integer "reply_chirp_id"
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_chirps_on_user_id"
   end
 
@@ -24,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.integer "follwer_id"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
@@ -31,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.integer "user_id", null: false
     t.integer "chirp_id", null: false
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["chirp_id"], name: "index_likes_on_chirp_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -38,14 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.string "display_name"
-    t.string "icon"
+    t.string "display_name", default: "username"
+    t.string "icon", default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIqcwio8gGLw-sSaYm0SYl13oLFpscvutmkk8l95s33AM3_kD0HivHJLzMF_t6w-VI2ow&usqp=CAU"
     t.string "banner"
     t.string "bio"
     t.string "website"
     t.integer "birthday"
     t.integer "pinned_chirp_id"
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "chirps", "users"
