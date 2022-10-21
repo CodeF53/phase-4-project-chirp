@@ -1,51 +1,22 @@
 class FollowsController < ApplicationController
-  before_action :set_follow, only: %i[ show update destroy ]
-
-  # GET /follows
-  def index
-    @follows = Follow.all
-
-    render json: @follows
-  end
-
-  # GET /follows/1
-  def show
-    render json: @follow
-  end
+  before_action :set_follow, only: %i[destroy]
 
   # POST /follows
   def create
-    @follow = Follow.new(follow_params)
+    follow = Follow.create!(follow_params)
 
-    if @follow.save
-      render json: @follow, status: :created, location: @follow
-    else
-      render json: @follow.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /follows/1
-  def update
-    if @follow.update(follow_params)
-      render json: @follow
-    else
-      render json: @follow.errors, status: :unprocessable_entity
-    end
+    render json: follow, status: :created
   end
 
   # DELETE /follows/1
   def destroy
-    @follow.destroy
+    Follow.find(params[:id]).destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_follow
-      @follow = Follow.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def follow_params
-      params.require(:follow).permit(:follwer_id, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def follow_params
+    params.require(:follow).permit(:follwer_id, :user_id)
+  end
 end
