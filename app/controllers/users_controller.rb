@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: %i[create profile]
 
   def create
     user = User.create!(user_params)
@@ -9,6 +9,12 @@ class UsersController < ApplicationController
 
   def show
     render json: @current_user
+  end
+
+  def profile
+    user = User.find_by(username: params[:username])
+
+    render json: user, serializer: UserProfileSerializer
   end
 
   private
