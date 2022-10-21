@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom"
 import { Chirps } from "../components/Chirp"
 
 export function User({current_user}) {
-  const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState({chirp_ids:[]})
   const { username } = useParams()
 
-  useEffect(() => { fetch(`users/${username}`).then(r=>r.json()).then(data=>{
+  useEffect(() => { fetch(`user/${username}`).then(r=>r.json()).then(data=>{
     setUserData(data)
   })}, [username])
 
