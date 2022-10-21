@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/me', to: 'users#me'
   get '/feed', to: 'users#feed'
   get '/users/:id', to: 'users#show'
+  get '/users', to: 'users#index'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/feed', to: 'users#feed'
