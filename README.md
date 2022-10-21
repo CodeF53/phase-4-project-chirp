@@ -1,24 +1,8 @@
-# README
+# Twatter!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## TODO:
+- [x] user shit
+- [ ] create database
+- [ ] 
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<iframe width="315" height="315" src='https://dbdiagram.io/embed/6352c80e4709410195b52a51'> </iframe>

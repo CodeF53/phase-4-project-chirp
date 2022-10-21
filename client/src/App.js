@@ -18,6 +18,9 @@ function App() {
     </Routes>
   }
 
+  // if (user.followed_accounts == 0)
+  //   "find people"
+
   return (
     <div className="App">
     </div>
