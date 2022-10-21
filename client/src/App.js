@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <Chirp/>
+      <Chirp id={1}/>
     </div>
   );
 }

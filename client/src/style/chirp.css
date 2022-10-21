@@ -1,4 +1,28 @@
-.chirp, .chirp * {
-  /* temp debugging */
-  outline: solid red 1px;
+.chirp {
+  max-width: 35rem;
+}
+
+.chirp_icon_container {
+  width: 3rem;
+  padding: .75rem;
+}
+.chirp_icon_container > img {
+  max-width: 100%;
+  border-radius: 100%;
+}
+
+.chirp_content_container {
+  width: 100%;
+}
+
+.chirp_header {
+  gap: 0.25rem;
+}
+.chirp_header > .chirp_extra_controls_button > svg {
+  width: 1rem;
+}
+
+textarea.chirp_text {
+  resize: none;
+  border: none;
 }
