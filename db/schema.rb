@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.string "attachment"
     t.integer "reply_chirp_id"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_chirps_on_user_id"
   end
 
@@ -25,7 +24,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.integer "follwer_id"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
@@ -33,7 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.integer "user_id", null: false
     t.integer "chirp_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["chirp_id"], name: "index_likes_on_chirp_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -49,7 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_170531) do
     t.integer "birthday"
     t.integer "pinned_chirp_id"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "chirps", "users"
