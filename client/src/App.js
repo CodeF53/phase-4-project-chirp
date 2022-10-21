@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Chirp } from './components/Chirp';
 import { LoginSignup } from './pages/LoginSignup';
 
 function App() {
