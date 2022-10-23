@@ -23,7 +23,7 @@ class ChirpsController < ApplicationController
 
   # GET /feed
   def feed
-    chirps = (@current_user.chirps.map(&:id) + @current_user.followed_users.map(&:chirps).map(&:id))
+    chirps = (@current_user.chirps.map(&:id) + @current_user.followed_users.map(&:chirps).flatten(1).map(&:id))
 
     render json: chirps.sort.reverse
   end
