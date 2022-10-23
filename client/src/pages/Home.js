@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Chirps } from "../components/Chirp"
+import {Heading} from "../components/Heading"
 
 export function Home() {
   const [chirp_ids, setChirp_ids] = useState([])
@@ -8,6 +9,7 @@ export function Home() {
   })}, [])
 
   return <div>
+    <Heading chirp_ids={chirp_ids} />
     {/* the thing at the top (chirp editor) */}
     <Chirps chirp_ids={chirp_ids}/>
   </div>
