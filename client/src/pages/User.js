@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Chirps } from "../components/Chirp"
+import { Profile} from "../components/Profile"
 
 export function User({current_user}) {
   const [userData, setUserData] = useState({chirp_ids:[]})
@@ -11,7 +12,7 @@ export function User({current_user}) {
   })}, [username])
 
   return <div>
-    {/* <Profile userData={userData} current_user={current_user} */}
+    <Profile userData={userData} current_user={current_user}/>
     {/* pinned chirp */}
     <Chirps chirp_ids={userData.chirp_ids}/>
   </div>
