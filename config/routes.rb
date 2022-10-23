@@ -7,9 +7,7 @@ Rails.application.routes.draw do
   post '/login',    to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  # TODO: integrate user auth with create and destroy
   resources :chirps, only:  %i[create destroy show]
-  # TODO: fix relations before integrating auth with these
   resources :likes, only:   %i[create destroy]
   resources :follows, only: %i[create destroy]
 

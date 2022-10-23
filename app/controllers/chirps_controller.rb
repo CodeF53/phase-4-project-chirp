@@ -9,30 +9,23 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
-    @chirp = Chirp.create!(chirp_params)
+    chirp = Chirp.create!(chirp_params, user_id: @current_user.id)
 
-    render json: @chirp, status: :created, location: @chirp
+    render json: chirp, status: :created
   end
-
-  # ? maybe make tweets editable?
-  # # PATCH/PUT /chirps/1
-  # def update
-  #   if @chirp.update(chirp_params)
-  #     render json: @chirp
-  #   else
-  #     render json: @chirp.errors, status: :unprocessable_entity
-  #   end
-  # end
 
   # DELETE /chirps/1
   def destroy
+    return render json: { errors: 'you didnt make this chirp' } if @chirp.user_id != @current_user.id
+
     @chirp.destroy
   end
 
   # GET /feed
   def feed
-    # TODO: once follows relations are fixed uncomment this next line
-    render json: @current_user.chirps.map(&:id).sort.reverse # + @current_user.followed_users.chirps.map(&:id)
+    chirps = (@current_user.chirps.map(&:id) + @current_user.followed_users.map(&:chirps).map(&:id))
+
+    render json: chirps.sort.reverse
   end
 
   private

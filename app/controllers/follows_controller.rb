@@ -3,20 +3,14 @@ class FollowsController < ApplicationController
 
   # POST /follows
   def create
-    follow = Follow.create!(follow_params)
+    follow = Follow.create!(follower: @current_user, user_id: params[:user_id])
 
     render json: follow, status: :created
   end
 
   # DELETE /follows/1
   def destroy
-    Follow.find(params[:id]).destroy
-  end
-
-  private
-
-  # Only allow a list of trusted parameters through.
-  def follow_params
-    params.require(:follow).permit(:follwer_id, :user_id)
+    follow = Follow.find_by(follower: @current_user.id, user_id: params[:user_id])
+    follow.destroy
   end
 end

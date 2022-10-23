@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def feed
-    render json: Chirp.all, status: :ok 
+    render json: Chirp.all, status: :ok
   end
 
   def profile
