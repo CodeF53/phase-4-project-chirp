@@ -8,10 +8,9 @@
     left: 0;
 }
 
-/* .profile_images {
-    position: absolute;
-    bottom: -2rem;
-} */
+
+/* TODO: background should be gray if no banner uploaded */
+
 
 .banner_container {
     position: relative;

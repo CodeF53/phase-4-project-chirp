@@ -11,7 +11,7 @@ export function User({current_user}) {
   useEffect(() => { fetch(`user/${username}`).then(r=>r.json()).then(data=>{
     setUserData(data)
   })}, [username])
-  console.log('user.js userdata = ', userData)
+  
   return <div>
     <Heading userData={userData}/>
     <Profile userData={userData} current_user={current_user}/>

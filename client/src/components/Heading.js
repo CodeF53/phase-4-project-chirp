@@ -4,7 +4,7 @@ import '../style/heading.css';
 
 export function Heading ({userData}) {
     let path = useParams();
-    console.log('heading.js, path', path)
+    
     if (path.username)
         return (
         <div className="heading_container">
@@ -15,7 +15,7 @@ export function Heading ({userData}) {
     else
         return (
             <div>
-                <h1>testing</h1>
+                <h1>add a back button</h1>
             </div>
         )
 }
