@@ -28,6 +28,8 @@ function App() {
   // if (user.followed_accounts == 0)
   //   "find people"
 
+  // TODO: individual chirp view
+  // TODO: find people view
   return (
     <div className="App row">
       <Header user={user}/>

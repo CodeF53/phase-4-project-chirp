@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :chirps, only:  %i[create destroy show]
   resources :likes, only:   %i[create destroy]
   resources :follows, only: %i[create destroy]
+  # TODO: rechirps routes
 
   get '/feed', to: 'chirps#feed'
   get '/user/:username', to: 'users#profile' # Basically done

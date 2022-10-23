@@ -27,6 +27,16 @@ export function Chirp({id}) {
     return () => { window.removeEventListener("resize", handleResize) }
   }, [id])
 
+  // TODO: SVGs
+  // TODO: re-chirp button
+  // TODO: delete controls in chirp_extra_controls_button
+  // TODO: reply button
+  // TODO: like button
+
+  // TODO: like count
+  // TODO: re-chirp count
+
+  // TODO: render reply chains and shit
   return <div className={`chirp row chirpID_${id}`}>
     <div className="chirp_icon_container col">
       <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
