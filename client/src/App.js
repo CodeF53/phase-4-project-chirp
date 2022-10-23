@@ -33,7 +33,7 @@ function App() {
       <Header user={user}/>
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home current_user={user}/>}/>
         <Route path="/:username" element={<User current_user={user}/>}/>
       </Routes>
     </div>
