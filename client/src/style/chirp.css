@@ -1,5 +1,6 @@
-.chirp {
+.chirpWidth, .chirp {
   max-width: 35rem;
+  width: 100%;
 }
 
 .chirp_icon_container {
@@ -22,7 +23,11 @@
   width: 1rem;
 }
 
-textarea.chirp_text {
+textarea.chirp_editor_text, textarea.chirp_text {
   resize: none;
   border: none;
+}
+textarea.chirp_editor_text {
+  margin-top: 1rem;
+  font-size: 1.25rem;
 }

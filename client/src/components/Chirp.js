@@ -10,7 +10,7 @@ export function Chirps({chirp_ids}){
 const fixTextarea = (id)=>{
   let chirpTextNode = document.querySelector(`.chirpID_${id} > .chirp_content_container > textarea.chirp_text`)
   chirpTextNode.style.height = chirpTextNode.scrollHeight - 3 + "px"
-  chirpTextNode.style.height = chirpTextNode.parentNode.width
+  chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
 export function Chirp({id}) {

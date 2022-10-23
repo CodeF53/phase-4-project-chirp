@@ -9,7 +9,7 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
-    chirp = Chirp.create!(chirp_params, user_id: @current_user.id)
+    chirp = Chirp.create!(text: params[:text], user: @current_user)
 
     render json: chirp, status: :created
   end
