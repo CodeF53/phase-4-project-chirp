@@ -9,6 +9,7 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
+    # TODO: allow all params
     chirp = Chirp.create!(text: params[:text], user: @current_user)
 
     render json: chirp, status: :created

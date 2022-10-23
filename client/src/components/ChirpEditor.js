@@ -30,6 +30,7 @@ export function ChirpEditor({current_user, addChirp}) {
     })}})
   }
 
+  // TODO: implement image adding
   return <div className="chirp chirp_editor row">
     <div className="chirp_icon_container">
       <img src={current_user.icon} alt="your icon"/>
