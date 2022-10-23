@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: %i[create profile]
 
   def index
     render json: User.all, status: :ok
@@ -23,6 +23,12 @@ class UsersController < ApplicationController
 
   def feed
     render json: Chirp.all, status: :ok 
+  end
+
+  def profile
+    user = User.find_by(username: params[:username])
+
+    render json: user, serializer: UserProfileSerializer
   end
 
   private

@@ -1,11 +1,6 @@
 class ChirpsController < ApplicationController
-  before_action :set_chirp, only: %i[ show update destroy ]
-
-  # GET /chirps
-  def index
-    @chirps = Chirp.all
-    render json: @chirps
-  end
+  skip_before_action :authorize, only: %i[show]
+  before_action :set_chirp, only: %i[show destroy]
 
   # GET /chirps/1
   def show
@@ -14,37 +9,41 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
-    @chirp = Chirp.new(chirp_params)
+    @chirp = Chirp.create!(chirp_params)
 
-    if @chirp.save
-      render json: @chirp, status: :created, location: @chirp
-    else
-      render json: @chirp.errors, status: :unprocessable_entity
-    end
+    render json: @chirp, status: :created, location: @chirp
   end
 
-  # PATCH/PUT /chirps/1
-  def update
-    if @chirp.update(chirp_params)
-      render json: @chirp
-    else
-      render json: @chirp.errors, status: :unprocessable_entity
-    end
-  end
+  # ? maybe make tweets editable?
+  # # PATCH/PUT /chirps/1
+  # def update
+  #   if @chirp.update(chirp_params)
+  #     render json: @chirp
+  #   else
+  #     render json: @chirp.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /chirps/1
   def destroy
     @chirp.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chirp
-      @chirp = Chirp.find(params[:id])
-    end
+  # GET /feed
+  def feed
+    # TODO: once follows relations are fixed uncomment this next line
+    render json: @current_user.chirps.map(&:id).sort.reverse # + @current_user.followed_users.chirps.map(&:id)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def chirp_params
-      params.require(:chirp).permit(:user_id, :text, :attachment, :reply_chirp_id)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chirp
+    @chirp = Chirp.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def chirp_params
+    params.require(:chirp).permit(:text, :attachment, :reply_chirp_id)
+  end
 end
