@@ -4,10 +4,12 @@ class User < ApplicationRecord
   has_many :chirps
 
   # ! cursed
-  # TODO: fix
-  has_many :follows, class_name: 'follow', foreign_key: 'follower_id'
-  has_many :followed_users, through: :follows, source: :followed_user
+  has_many :follows_to_others, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followed_users, through: :follows_to_others, source: :followed_user
 
-  # TODO: has same issues as follows has
+  has_many :follows_to_self, class_name: 'Follow', foreign_key: 'user_id'
+  has_many :followers, through: :follows_to_self, foreign_key: :follower
+
   has_many :likes
+  has_many :liked_chirps, through: :likes, foreign_key: :chirp
 end
