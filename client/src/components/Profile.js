@@ -40,3 +40,5 @@ export function Profile ({userData, current_user, toggleEdit}) {
     </div>
     )
 }
+
+// i like big tabs and i cannot lie
