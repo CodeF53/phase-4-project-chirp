@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+body {
+  --filled-heart-color: rgb(249, 24, 128);
+  --filled-rechirp-color: rgb(0, 186, 124);
+  --chirp-button-color: rgb(113, 118, 123);
+}
+
 /* Assign to parents for changing direction */
 .row { display: flex; flex-direction: row; }
 .col { display: flex; flex-direction: column; }

@@ -23,6 +23,22 @@
   width: 1rem;
 }
 
+/* buttons! */
+.chirp_controls_footer > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.chirp_controls_footer > button > svg {
+  width: 1.25em;
+  height: 1.25em;
+  fill: var(--chirp-button-color);
+}
+.chirp_controls_footer > button > .filledHeart { fill: var(--filled-heart-color); }
+.chirp_controls_footer > button > .filledRechirp { fill: var(--filled-rechirp-color); }
+
+
+/* chirp editor */
 textarea.chirp_editor_text, textarea.chirp_text {
   resize: none;
   border: none;

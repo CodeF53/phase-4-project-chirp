@@ -16,6 +16,6 @@ export function User({current_user}) {
     <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>
     <Profile userData={userData} current_user={current_user}/>
     {/* pinned chirp */}
-    <Chirps chirp_ids={userData.chirp_ids}/>
+    <Chirps chirp_ids={userData.chirp_ids} current_user={current_user}/>
   </div>
 }
