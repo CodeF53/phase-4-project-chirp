@@ -7,9 +7,9 @@ import {ReactComponent as ReplySvg} from '../assets/reply.svg';
 import {ReactComponent as ShareSvg} from '../assets/share.svg';
 import { ChirpEditorModal } from "./ChirpEditorModal";
 
-export function Chirps({chirp_ids, current_user}){
+export function Chirps({chirp_ids, current_user, addChirp}){
   return <div className="col chirps">
-    { chirp_ids.map(chirp_id=><ChirpChain id={chirp_id} key={chirp_id} current_user={current_user}/>) }
+    { chirp_ids.map(chirp_id=><ChirpChain id={chirp_id} key={chirp_id} current_user={current_user} addChirp={addChirp}/>) }
   </div>
 }
 
@@ -22,11 +22,7 @@ const fixTextarea = (id)=>{
   // TODO: re-chirp, re-chirp count
   // TODO: delete controls in chirp_extra_controls_button
 
-  // TODO: render reply chains and shit
-  // hide chirps that have a reply from their own author
-  // render chirp that is being replied to
-
-export function ChirpChain({ id, current_user }) {
+export function ChirpChain({ id, current_user, addChirp }) {
   const [chirp, setChirp] = useState({has_reply_from_self: true})
 
   const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
@@ -40,7 +36,7 @@ export function ChirpChain({ id, current_user }) {
   // return <div className="chirpChain col"><RecursiveChirp chirp={chirp} current_user={current_user}/></div>
   return <div className="chirpChain col">
     {chain.slice(0,-1).map(chirp=><SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user} showReplyNubbin={true}/>)}
-    <SingleChirp id={chain.slice(-1)[0].id} chirpInput={chirp} current_user={current_user}/>
+    <SingleChirp id={chain.slice(-1)[0].id} chirpInput={chirp} current_user={current_user} addChirp={addChirp}/>
   </div>
 }
 
@@ -61,7 +57,7 @@ function recursive_chirp_to_chirp_array(chirp) {
 
 // takes id and chirpInput or id on its own
 // if given id it fetches the needed data
-export function SingleChirp({id, chirpInput, current_user, disable_reply, showReplyNubbin}) {
+export function SingleChirp({id, chirpInput, current_user, disable_reply, showReplyNubbin, addChirp}) {
   const [chirp, setChirp] = useState(chirpInput?chirpInput:{ text:"", like_user_ids: [], attachment:"", unix_timestamp:0, user: { display_name:"", username:"", icon:"" }})
 
   const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
@@ -69,13 +65,11 @@ export function SingleChirp({id, chirpInput, current_user, disable_reply, showRe
   // only fetch the chirp if it needs it.
   useEffect(() => { if (!chirpInput) { fetchChirp()} }, [chirpInput])
 
-  console.log(chirp)
-
-  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} showReplyNubbin={showReplyNubbin}/>
+  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} showReplyNubbin={showReplyNubbin} addChirp={addChirp}/>
 }
 
 // Internal Chirp
-function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNubbin}) {
+function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNubbin, addChirp}) {
   const [showReplyEditor, setShowReplyEditor] = useState(false)
 
   // event listener for fixing the text area size
@@ -111,7 +105,7 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
       </div>
       <div className="chirp_controls_footer row">
         {disable_reply?null:<Fragment>
-          <button onClick={()=>setShowReplyEditor(true)}><ReplySvg/></button>
+          <button onClick={()=>setShowReplyEditor(true)}><ReplySvg/>{chirp.reply_ids.length}</button>
           <div className="spacer"/>
         </Fragment>}
 
@@ -128,7 +122,7 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
       </div>
     </div>
 
-    {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}}/>:null}
+    {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}} addChirp={addChirp}/>:null}
   </div>
 }
 
