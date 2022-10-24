@@ -3,20 +3,18 @@ class LikesController < ApplicationController
 
   # POST /likes
   def create
-    like = Like.create!(like_params)
+    if Like.find_by(user_id: @current_user.id, chirp_id: params[:chirp_id])
+      return render json: { errors: ['you already liked this chirp'] }, status: :bad_request
+    end
+
+    like = Like.create!(user_id: @current_user.id, chirp_id: params[:chirp_id])
 
     render json: like, status: :created
   end
 
   # DELETE /likes/1
   def destroy
-    Like.find(params[:id]).destroy
-  end
-
-  private
-
-  # Only allow a list of trusted parameters through.
-  def like_params
-    params.require(:like).permit(:user_id, :chirp_id)
+    like = Like.find_by(user_id: @current_user.id, chirp_id: params[:chirp_id])
+    like.destroy
   end
 end

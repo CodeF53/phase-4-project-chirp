@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react"
 import { Chirps } from "../components/Chirp"
 import {Heading} from "../components/Heading"
+import { ChirpEditor } from "../components/ChirpEditor"
 
-export function Home() {
+export function Home({current_user}) {
   const [chirp_ids, setChirp_ids] = useState([])
   useEffect(() => { fetch("feed").then(r=>r.json()).then(data=>{
     setChirp_ids(data)
   })}, [])
 
-  return <div>
+  return <div className="chirpWidth">
     <Heading chirp_ids={chirp_ids} />
-    {/* the thing at the top (chirp editor) */}
+    <ChirpEditor current_user={current_user} addChirp={(chirp_id)=>{setChirp_ids([chirp_id, ...chirp_ids])}}/>
     <Chirps chirp_ids={chirp_ids}/>
   </div>
 }

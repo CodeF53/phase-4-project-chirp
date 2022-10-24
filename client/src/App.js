@@ -10,10 +10,11 @@ function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
   useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
-  // auto-login (incase cooke expired or something)
-  useEffect(() => {fetch("/me").then((r) => { if (r.ok) {
-    r.json().then((user) => setUser(user));
-  }});}, []);
+  // auto-login (incase cookie expired or something)
+  useEffect(() => {fetch("/me").then((r) => {
+    if (r.ok) { r.json().then((user) => setUser(user)); }
+    else { setUser(null) }
+  });}, []);
 
 
   if (!user) {
@@ -28,12 +29,14 @@ function App() {
   // if (user.followed_accounts == 0)
   //   "find people"
 
+  // TODO: individual chirp view
+  // TODO: find people view
   return (
     <div className="App row">
       <Header user={user}/>
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home current_user={user}/>}/>
         <Route path="/:username" element={<User current_user={user}/>}/>
       </Routes>
     </div>
