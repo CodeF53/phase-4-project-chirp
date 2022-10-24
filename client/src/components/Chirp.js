@@ -7,9 +7,9 @@ import {ReactComponent as ReplySvg} from '../assets/reply.svg';
 import {ReactComponent as ShareSvg} from '../assets/share.svg';
 import { ChirpEditorModal } from "./ChirpEditorModal";
 
-export function Chirps({chirp_ids, current_user}){
+export function Chirps({chirp_ids, current_user, addChirp}){
   return <div className="col chirps">
-    { chirp_ids.map(chirp_id=><Chirp id={chirp_id} key={chirp_id} current_user={current_user}/>) }
+    { chirp_ids.map(chirp_id=><ChirpChain id={chirp_id} key={chirp_id} current_user={current_user} addChirp={addChirp}/>) }
   </div>
 }
 
@@ -19,32 +19,73 @@ const fixTextarea = (id)=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-export function Chirp({id, current_user, disable_reply, noOutline}) {
-  const [chirp, setChirp] = useState({ text:"", attachment:"", reply_chirp_id:null, unix_timestamp:0, user: { display_name:"", username:"", icon:"" }, like_user_ids: [] })
+  // TODO: re-chirp, re-chirp count
+  // TODO: delete controls in chirp_extra_controls_button
+
+export function ChirpChain({ id, current_user, addChirp }) {
+  const [chirp, setChirp] = useState({has_reply_from_self: true})
+
+  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
+    .then(data=>{ setChirp(data); })}
+  useEffect(() => { fetchChirp() }, [])
+
+  if (chirp.has_reply_from_self) return null
+
+  const chain = recursive_chirp_to_chirp_array(chirp).reverse()
+
+  // return <div className="chirpChain col"><RecursiveChirp chirp={chirp} current_user={current_user}/></div>
+  return <div className="chirpChain col">
+    {chain.slice(0,-1).map(chirp=><SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user} showReplyNubbin={true}/>)}
+    <SingleChirp id={chain.slice(-1)[0].id} chirpInput={chirp} current_user={current_user} addChirp={addChirp}/>
+  </div>
+}
+
+function recursive_chirp_to_chirp_array(chirp) {
+  if (!chirp.reply_chirp) return [chirp]
+  return [chirp, ...recursive_chirp_to_chirp_array(chirp.reply_chirp)]
+}
+
+// function RecursiveChirp({chirp, current_user}) {
+//   return <div>
+//     {chirp.reply_chirp? <Fragment>
+//       <RecursiveChirp chirp={chirp.reply_chirp} current_user={current_user}/>
+//       <div className="chirpChainSpacer"/>
+//     </Fragment>:null}
+//     <SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user}/>
+//   </div>
+// }
+
+// takes id and chirpInput or id on its own
+// if given id it fetches the needed data
+export function SingleChirp({id, chirpInput, current_user, disable_reply, showReplyNubbin, addChirp}) {
+  const [chirp, setChirp] = useState(chirpInput?chirpInput:{ text:"", like_user_ids: [], attachment:"", unix_timestamp:0, user: { display_name:"", username:"", icon:"" }})
+
+  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
+    .then(data=>{ setChirp(data); })}
+  // only fetch the chirp if it needs it.
+  useEffect(() => { if (!chirpInput) { fetchChirp()} }, [chirpInput])
+
+  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} showReplyNubbin={showReplyNubbin} addChirp={addChirp}/>
+}
+
+// Internal Chirp
+function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNubbin, addChirp}) {
   const [showReplyEditor, setShowReplyEditor] = useState(false)
 
-  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json()).then(data=>{
-    setChirp(data)
-    setTimeout(()=>{fixTextarea(id)}, 10)
-  })}
-
+  // event listener for fixing the text area size
   useEffect(() => {
-    fetchChirp()
     function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
     window.addEventListener("resize", handleResize)
+    handleResize()
     return () => { window.removeEventListener("resize", handleResize) }
   }, [id])
 
-  // TODO: re-chirp, re-chirp count, reply
-  // TODO: delete controls in chirp_extra_controls_button
-
-  // TODO: render reply chains and shit
-
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
 
-  return <div className={`chirp row chirpID_${id} ${noOutline?"noOutline":""}`}>
+  return <div className={`row chirpID_${id}`}>
     <div className="chirp_icon_container col">
       <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+      {showReplyNubbin?<div className="chirpChainNubbin"/>:null}
     </div>
     <div className="chirp_content_container col">
       <div className="chirp_header row">
@@ -64,7 +105,7 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
       </div>
       <div className="chirp_controls_footer row">
         {disable_reply?null:<Fragment>
-          <button onClick={()=>setShowReplyEditor(true)}><ReplySvg/></button>
+          <button onClick={()=>setShowReplyEditor(true)}><ReplySvg/>{chirp.reply_ids.length}</button>
           <div className="spacer"/>
         </Fragment>}
 
@@ -81,6 +122,7 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
       </div>
     </div>
 
-    {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}}/>:null}
+    {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}} addChirp={addChirp}/>:null}
   </div>
 }
+
