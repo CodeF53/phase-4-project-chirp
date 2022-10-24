@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import '../style/profile.css';
 
 
-export function Profile ({userData, current_user}) {
+export function Profile ({userData, current_user, toggleEdit}) {
     const [user, setUser] = useState({ username:"", icon:"", banner:"", display_name:"", bio:"", website:"", birthday: 0, pinned_chirp_id: 0  })
     const [following, setFollowing] = useState(false)
     
@@ -17,6 +17,7 @@ export function Profile ({userData, current_user}) {
     const isSelf = userData.username == current_user.username
 
     function handleClick() {
+        toggleEdit()
         console.log('edit button clicked')
     }
 

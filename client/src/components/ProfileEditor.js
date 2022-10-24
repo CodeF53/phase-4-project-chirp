@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import { LabelledInput } from "./LabelledInput"
 
-export function ProfileEditor ({userData}) {
+export function ProfileEditor ({userData, toggleEdit}) {
     const [profileInfo, setProfileInfo] = useState({
         'icon': "",
         'banner': "",
@@ -16,26 +17,34 @@ export function ProfileEditor ({userData}) {
 // TODO: fix fetch 
     function patchProfile (e) {
         e.preventDefault()
-        fetch(`http://localhost:3000/users/${userData.username}`, {
+        fetch(`http://localhost:3000/${userData.username}`, {
             method: "PATCH",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(profileInfo)
           }).then(r=>{if (r.ok) { r.json().then((data) => {
-            console.log('edit profile patch request', profileInfo, 'data:', data)
+            toggleEdit()
           })}})
     }
 
     return (
         <>
-        <form onSubmit={patchProfile}>
+        
+        <form onSubmit={patchProfile} width='35rem'>
             <h1>Edit Profile</h1>
-            <input name="icon" placeholder="Icon image address" onChange={(e)=>handleEdit(e)}></input>
-            <input name="banner" placeholder="Banner image address" onChange={(e)=>handleEdit(e)}></input>
-            <input name = "display_name" placeholder="Name" onChange={(e)=>handleEdit(e)}></input>
-            <input name="bio" placeholder="Bio" onChange={(e)=>handleEdit(e)}></input>
-            <input name="website" placeholder="Website" onChange={(e)=>handleEdit(e)}></input>
-            <input name="birthday" placeholder="Birthday" onChange={(e)=>handleEdit(e)}></input>
-            <input type="submit"></input>
+            <LabelledInput name="icon" label="Icon image address" onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput name="banner" label="Banner image address" onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput name = "display_name" label={userData.display_name == null || userData.username ? "What should other chirpers call you?" : userData.display_name} onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput name="bio" label={userData.bio == null ? "Tell the world about yourself" : userData.bio} value={userData.bio} onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput name="website" label={userData.website == null ? "Enter a website" : userData.website} onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput name="birthday" label={userData.birthday == null ? "Enter your birthday" : userData.birthday} onChange={(e)=>handleEdit(e)}/>
+            <br></br>
+            <LabelledInput type="submit"/>
+            <br></br>
         </form>
         </>
     )

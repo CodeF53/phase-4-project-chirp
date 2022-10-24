@@ -8,6 +8,11 @@ import {Heading} from "../components/Heading"
 export function User({current_user}) {
   const [userData, setUserData] = useState({chirp_ids:[]})
   const { username } = useParams()
+  const [isEditing, setIsEditing] = useState(false)
+
+  function toggleEdit() {
+    setIsEditing((isEditing) => !isEditing)
+  }
 
   useEffect(() => { fetch(`user/${username}`).then(r=>r.json()).then(data=>{
     setUserData(data)
@@ -15,8 +20,9 @@ export function User({current_user}) {
   
   return <div>
     <Heading userData={userData}/>
-    <Profile userData={userData} current_user={current_user}/>
-    <ProfileEditor userData={userData} />
-    <Chirps chirp_ids={userData.chirp_ids}/>
+    <Profile userData={userData} current_user={current_user} toggleEdit={toggleEdit}/>
+    {isEditing? 
+      <ProfileEditor userData={userData} toggleEdit={toggleEdit}/> :
+      <Chirps chirp_ids={userData.chirp_ids}/>}
   </div>
 }
