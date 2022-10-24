@@ -22,9 +22,10 @@ export function User({current_user}) {
 
     <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>
     <Profile userData={userData} current_user={current_user} toggleEdit={toggleEdit}/>
-    {isEditing ? 
+    {/* {isEditing ?
     <ProfileEditor userData={userData} toggleEdit={toggleEdit}/> :
-    <Chirps chirp_ids={userData.chirp_ids} current_user={current_user}/>}
+    <Chirps chirp_ids={userData.chirp_ids} current_user={current_user}/>} */}
+    <Chirps chirp_ids={userData.chirp_ids} current_user={current_user}/>
     {/* pinned chirp */}
 
   </div>
