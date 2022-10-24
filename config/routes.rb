@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/me',      to: 'users#show'
   post '/login',    to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  patch 'user/:username', to: 'users#update'
 
   resources :chirps, only:  %i[create destroy show]
   resources :likes, only:   %i[create destroy]
@@ -13,5 +14,6 @@ Rails.application.routes.draw do
   # TODO: rechirps routes
 
   get '/feed', to: 'chirps#feed'
-  get '/user/:username', to: 'users#profile' # Basically done
+  get 'user/:username', to: 'users#profile' # Basically done
+  
 end

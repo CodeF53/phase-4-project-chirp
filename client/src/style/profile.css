@@ -23,10 +23,11 @@
     position: absolute;
     width: 12rem;
     padding: 1rem;
+    padding-bottom: 0;
     border: 1px;
     z-index: 2;
     left: 0;
-    bottom: 0;
+    bottom: -2rem;
     border-radius: 100%;
   }
 

@@ -15,7 +15,7 @@ export function Heading ({userData}) {
     else
         return (
             <div>
-                <h1>add a back button</h1>
+                <h1>Placeholder to reference page type</h1>
             </div>
         )
 }

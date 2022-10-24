@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import '../style/profile.css';
 
+
 export function Profile ({userData, current_user}) {
     const [user, setUser] = useState({ username:"", icon:"", banner:"", display_name:"", bio:"", website:"", birthday: 0, pinned_chirp_id: 0  })
     const [following, setFollowing] = useState(false)
@@ -15,6 +16,10 @@ export function Profile ({userData, current_user}) {
 
     const isSelf = userData.username == current_user.username
 
+    function handleClick() {
+        console.log('edit button clicked')
+    }
+
 // if current_user.username == user.username, show edit button //
     return (
     <div className={`profile  userID_${userData.id}`}>
@@ -22,15 +27,14 @@ export function Profile ({userData, current_user}) {
             <div className="row profile_images">
                 <img src={userData.banner} alt={`${userData.display_name}'s banner`} className="banner_container"/>
                 <img src={userData.icon} alt={`${userData.display_name}'s icon`} className="profile_icon_container"/>
-                <button className="followbtn_container">{following ? "Unfollow" : "Follow"}</button>
+                {isSelf ? null : <button className="followbtn_container">{following ? "Unfollow" : "Follow"}</button>}
+                {isSelf ? <button className="followbtn_container" onClick={handleClick}>Edit</button> : null}
             </div>
         </div> 
         <div className="profile_bio_container">
             <h1 className="display_name">{userData.display_name}</h1>
-            {isSelf ? <button className="edit_profile_button">Edit</button> : null}  
             <h2 className="username">@{userData.username}</h2>
             <p className="bio">{userData.bio}</p>
-            
         </div>
     </div>
     )

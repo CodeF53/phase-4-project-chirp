@@ -27,8 +27,13 @@ class UsersController < ApplicationController
 
   def profile
     user = User.find_by(username: params[:username])
-
     render json: user, serializer: UserProfileSerializer
+  end
+
+  def update
+    user = User.find_by(username: params[:username])
+    user.update(user_params)
+    render json: user, status: :accepted
   end
 
   private
