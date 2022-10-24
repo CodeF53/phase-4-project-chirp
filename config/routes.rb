@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # ! User shit, dont touch
+  # ! User LOGIN shit, dont touch, put other routes elsewhere
   post '/signup', to: 'users#create'
   get '/me',      to: 'users#me'
   post '/login',    to: 'sessions#create'
@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   # TODO: rechirps routes
 
   get '/feed', to: 'chirps#feed'
-  get '/user/:username', to: 'users#profile' # Basically done
+  get 'user/:username', to: 'users#profile' # Basically done
+  patch 'user/:username', to: 'users#update'
 end
