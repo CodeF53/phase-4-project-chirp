@@ -1,4 +1,4 @@
-export function LabelledInput({label, name, type, value, onChange, step, min, max}) {
+export function LabeledInput({label, name, type, value, onChange, step, min, max}) {
     return <div className="row labeled_input">
       <label htmlFor={name}>{label}</label>
       <div className="spacer"/>
