@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import {ReactComponent as ImgSvg} from '../assets/add_img.svg';
+
 
 const fixTextarea = ()=>{
   let chirpTextNode = document.querySelector(`.chirp_editor > .chirp_content_container > textarea.chirp_editor_text`)
@@ -6,7 +8,7 @@ const fixTextarea = ()=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-export function ChirpEditor({current_user, addChirp}) {
+export function ChirpEditor({current_user, addChirp=()=>{}, reply_chirp_id, placeholder="What's Happening?"}) {
   const [chirpText, setChirpText] = useState("")
   useEffect(()=>{ fixTextarea() }, [chirpText])
 
@@ -23,7 +25,7 @@ export function ChirpEditor({current_user, addChirp}) {
     fetch("chirps", {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({text: chirpText})
+      body: JSON.stringify({text: chirpText, reply_chirp_id: reply_chirp_id})
     }).then(r=>{if (r.ok) { r.json().then(data=>{
       setChirpText("")
       addChirp(data.id)
@@ -31,16 +33,16 @@ export function ChirpEditor({current_user, addChirp}) {
   }
 
   // TODO: implement image adding
-  return <div className="chirp chirp_editor row">
+  return <div className="chirp chirp_editor row noOutline">
     <div className="chirp_icon_container">
       <img src={current_user.icon} alt="your icon"/>
     </div>
     <div className="chirp_content_container col">
-      <textarea className="chirp_editor_text" placeholder="What's Happening?" value={chirpText} onChange={(e)=>setChirpText(e.target.value)}/>
+      <textarea className="chirp_editor_text" placeholder={placeholder} value={chirpText} onChange={(e)=>setChirpText(e.target.value)}/>
       <div className="chirp_editor_controls row">
-        <button>add image</button>
+        <button className="addImage"><ImgSvg/></button>
         <div className="spacer"/>
-        <button onClick={handleChirp}>Chirp</button>
+        <button className="sendChirp" onClick={handleChirp}>{reply_chirp_id?"Reply":"Chirp"}</button>
       </div>
     </div>
   </div>
