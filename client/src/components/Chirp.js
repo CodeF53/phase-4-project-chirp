@@ -35,10 +35,14 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
     return () => { window.removeEventListener("resize", handleResize) }
   }, [id])
 
-  // TODO: re-chirp, re-chirp count, reply
+  // TODO: re-chirp, re-chirp count
   // TODO: delete controls in chirp_extra_controls_button
 
   // TODO: render reply chains and shit
+  // hide chirps that have a reply from their own author
+  // render chirp that is being replied to
+
+  console.log(chirp)
 
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
 
@@ -84,3 +88,4 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
     {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}}/>:null}
   </div>
 }
+
