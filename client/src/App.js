@@ -7,6 +7,12 @@ import { User } from './pages/User';
 
 function App() {
   // persistent user through local storage
+  const [isDarkMode, setIsDarkMode] = useState(JSON.parse(localStorage.getItem("isDarkMode")))
+  useEffect(() => { localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+  if (isDarkMode === null) setIsDarkMode(false)
+
+  // persistent user through local storage
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
   useEffect(() => { localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
@@ -20,9 +26,9 @@ function App() {
   if (!user) {
     return <Routes>
       {/* route user to login if url is login */}
-      <Route path="/login" element={<LoginSignup isLogin={true}  user={user} setUser={setUser} />} />
+      <Route className={isDarkMode?"dark":""} path="/login" element={<LoginSignup isLogin={true}  user={user} setUser={setUser} />} />
       {/* but default to always directing to signup */}
-      <Route path="*"      element={<LoginSignup isLogin={false} user={user} setUser={setUser} />} />
+      <Route className={isDarkMode?"dark":""} path="*"      element={<LoginSignup isLogin={false} user={user} setUser={setUser} />} />
     </Routes>
   }
 
@@ -32,7 +38,7 @@ function App() {
   // TODO: individual chirp view
   // TODO: find people view
   return (
-    <div className="App row">
+    <div className={`App row ${isDarkMode?"dark":""}`} >
       <Header user={user}/>
 
       <Routes>

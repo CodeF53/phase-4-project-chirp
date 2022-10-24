@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :chirps, only:  %i[create destroy show]
-  resources :likes, only:   %i[create destroy]
+
+  post   '/likes/:chirp_id', to: 'likes#create'
+  delete '/likes/:chirp_id', to: 'likes#destroy'
+
   resources :follows, only: %i[create destroy]
   # TODO: rechirps routes
 
