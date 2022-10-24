@@ -9,7 +9,7 @@ import { ChirpEditorModal } from "./ChirpEditorModal";
 
 export function Chirps({chirp_ids, current_user}){
   return <div className="col chirps">
-    { chirp_ids.map(chirp_id=><SingleChirp id={chirp_id} key={chirp_id} current_user={current_user}/>) }
+    { chirp_ids.map(chirp_id=><ChirpChain id={chirp_id} key={chirp_id} current_user={current_user}/>) }
   </div>
 }
 
@@ -26,13 +26,42 @@ const fixTextarea = (id)=>{
   // hide chirps that have a reply from their own author
   // render chirp that is being replied to
 
-export function ChirpChain({ id }) {
+export function ChirpChain({ id, current_user }) {
+  const [chirp, setChirp] = useState({has_reply_from_self: true})
 
+  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
+    .then(data=>{ setChirp(data); })}
+  useEffect(() => { fetchChirp() }, [])
+
+  if (chirp.has_reply_from_self) return null
+
+  const chain = recursive_chirp_to_chirp_array(chirp).reverse()
+
+  // return <div className="chirpChain col"><RecursiveChirp chirp={chirp} current_user={current_user}/></div>
+  return <div className="chirpChain col">
+    {chain.slice(0,-1).map(chirp=><SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user} showReplyNubbin={true}/>)}
+    <SingleChirp id={chain.slice(-1)[0].id} chirpInput={chirp} current_user={current_user}/>
+  </div>
 }
+
+function recursive_chirp_to_chirp_array(chirp) {
+  if (!chirp.reply_chirp) return [chirp]
+  return [chirp, ...recursive_chirp_to_chirp_array(chirp.reply_chirp)]
+}
+
+// function RecursiveChirp({chirp, current_user}) {
+//   return <div>
+//     {chirp.reply_chirp? <Fragment>
+//       <RecursiveChirp chirp={chirp.reply_chirp} current_user={current_user}/>
+//       <div className="chirpChainSpacer"/>
+//     </Fragment>:null}
+//     <SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user}/>
+//   </div>
+// }
 
 // takes id and chirpInput or id on its own
 // if given id it fetches the needed data
-export function SingleChirp({id, chirpInput, current_user, disable_reply, noOutline}) {
+export function SingleChirp({id, chirpInput, current_user, disable_reply, showReplyNubbin}) {
   const [chirp, setChirp] = useState(chirpInput?chirpInput:{ text:"", like_user_ids: [], attachment:"", unix_timestamp:0, user: { display_name:"", username:"", icon:"" }})
 
   const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
@@ -42,11 +71,11 @@ export function SingleChirp({id, chirpInput, current_user, disable_reply, noOutl
 
   console.log(chirp)
 
-  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} noOutline={noOutline}/>
+  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} showReplyNubbin={showReplyNubbin}/>
 }
 
 // Internal Chirp
-function Chirp({id, chirp, fetchChirp, current_user, disable_reply, noOutline}) {
+function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNubbin}) {
   const [showReplyEditor, setShowReplyEditor] = useState(false)
 
   // event listener for fixing the text area size
@@ -59,9 +88,10 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, noOutline}) 
 
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
 
-  return <div className={`chirp row chirpID_${id} ${noOutline?"noOutline":""}`}>
+  return <div className={`row chirpID_${id}`}>
     <div className="chirp_icon_container col">
       <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+      {showReplyNubbin?<div className="chirpChainNubbin"/>:null}
     </div>
     <div className="chirp_content_container col">
       <div className="chirp_header row">

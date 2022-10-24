@@ -19,14 +19,15 @@ body {
   --filled-rechirp-color: #00ba7c;
   --chirp-button-color: #536471;
   --chirp-outline-color: #eff3f4;
-  --modal-overlay-color: rgba(0,0,0,0.1)
+  --modal-overlay-color: rgba(0,0,0,0.1);
+  --reply-nubbin-color: #cfd9de;
 }
 body .dark {
   --background-color: black;
   --filled-heart-color: #f91880;
   --filled-rechirp-color: #00ba7c;
   --chirp-button-color: #71767b;
-  --modal-overlay-color: rgba(255,255,255,0.1)
+  --modal-overlay-color: rgba(255,255,255,0.1);
 }
 
 /* Assign to parents for changing direction */
@@ -43,7 +44,8 @@ h1,h2,h3,h4,h5,p,span {
 }
 
 .modalOverlay {
-  position: absolute;
+  position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
   width: 100vw;

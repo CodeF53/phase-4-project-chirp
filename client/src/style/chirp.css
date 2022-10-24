@@ -1,19 +1,28 @@
+.chirpChain {
+  border: var(--chirp-outline-color) solid 1px;
+  border-bottom: none;
+  /* gap: 1rem; */
+  position: relative;
+}
+
+.chirpChainNubbin {
+  flex:1;
+  margin-left: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: -0.5rem;
+  border-left: .2rem solid var(--reply-nubbin-color);
+}
+
 .chirpWidth, .chirp {
   max-width: var(--chirp-width);
   width: 100%;
   display: relative;
 }
 
-.chirp {
-  outline: var(--chirp-outline-color) solid 1px;
-}
-.chirp.noOutline {
-  outline: none
-}
-
 .chirp_icon_container {
   width: 3rem;
   padding: .75rem;
+  padding-bottom: 0;
 }
 .chirp_icon_container > img {
   max-width: 100%;
@@ -35,6 +44,9 @@
 }
 
 /* buttons! */
+.chirp_controls_footer {
+  margin-bottom: 1rem;
+}
 .chirp_controls_footer > button, .chirp_extra_controls_button {
   border: none;
   background-color: transparent;
