@@ -10,7 +10,7 @@ code {
     monospace;
 }
 body {
-  --chirp-width: 35rem;
+  --chirp-width: 37rem;
 }
 body {
   --background-color: white;
@@ -19,14 +19,18 @@ body {
   --filled-rechirp-color: #00ba7c;
   --chirp-button-color: #536471;
   --chirp-outline-color: #eff3f4;
-  --modal-overlay-color: rgba(0,0,0,0.1)
+  --modal-overlay-color: rgba(0,0,0,0.1);
+  --text-1:black;
+  --text-2:#536471;
 }
 body .dark {
   --background-color: black;
   --filled-heart-color: #f91880;
   --filled-rechirp-color: #00ba7c;
   --chirp-button-color: #71767b;
-  --modal-overlay-color: rgba(255,255,255,0.1)
+  --modal-overlay-color: rgba(255,255,255,0.1);
+  --text-1:white;
+
 }
 
 /* Assign to parents for changing direction */
