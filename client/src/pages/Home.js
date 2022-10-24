@@ -10,7 +10,7 @@ export function Home({current_user}) {
   })}, [])
 
   return <div className="chirpWidth">
-    <Heading chirp_ids={chirp_ids} />
+    <Heading text="Home" showBackButton={false} showChirpCount={false} />
     <ChirpEditor current_user={current_user} addChirp={(chirp_id)=>{setChirp_ids([chirp_id, ...chirp_ids])}}/>
     <Chirps chirp_ids={chirp_ids}/>
   </div>

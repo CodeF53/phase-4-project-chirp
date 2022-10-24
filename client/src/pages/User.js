@@ -11,9 +11,9 @@ export function User({current_user}) {
   useEffect(() => { fetch(`user/${username}`).then(r=>r.json()).then(data=>{
     setUserData(data)
   })}, [username])
-  
+
   return <div>
-    <Heading userData={userData}/>
+    <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>
     <Profile userData={userData} current_user={current_user}/>
     {/* pinned chirp */}
     <Chirps chirp_ids={userData.chirp_ids}/>

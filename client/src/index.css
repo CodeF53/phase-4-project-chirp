@@ -20,3 +20,7 @@ code {
 .col.centerChildren > *, .col > .centered { align-self: center; margin: 0px auto; }
 /* Assign to empty child dive to aesthetically fill space */
 .spacer { flex:1; }
+
+h1,h2,h3,h4,h5,p,span {
+  margin: 0;
+}

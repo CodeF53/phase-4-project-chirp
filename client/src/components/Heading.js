@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import '../style/heading.css';
 
-export function Heading ({userData}) {
-    let path = useParams();
-    
-    if (path.username)
-        return (
-        <div className="heading_container">
-                <h1 className="display_name">{userData.display_name} +</h1>
-                <p>99 chirps</p>
-        </div>
-        )
-    else
-        return (
-            <div>
-                <h1>add a back button</h1>
-            </div>
-        )
+export function Heading ({text, showBackButton, showChirpCount, chirpCount}) {
+  return <div className="heading row">
+    {showBackButton? <Link to="/"><button>back</button></Link>:null}
+    <div className="heading_text col">
+      {showChirpCount? <Fragment>
+        <h1 className="display_name">{text}</h1>
+        <h3>{chirpCount} chirps</h3>
+      </Fragment>:<h1>{text}</h1>}
+    </div>
+  </div>
 }
