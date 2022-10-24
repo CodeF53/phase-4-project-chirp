@@ -5,7 +5,7 @@ class ChirpSerializer < ActiveModel::Serializer
   # TODO: include rechirp_ids
 
   def like_user_ids
-    object.likes.map(&:likes)
+    object.likes.map(&:user_id)
   end
 
   has_one :user

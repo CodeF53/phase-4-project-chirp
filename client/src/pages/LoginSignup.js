@@ -31,6 +31,7 @@ export function LoginSignup({ user, setUser, isLogin }) {
 
   let errorNode = errorText.length===0? null: (<span className="centered" style={{color:"red", textAlign:"center"}}>{errorText}</span>)
 
+  // TODO: profile picture upload
   return (
     <div className="col">
       <form onSubmit={handleSubmit} className="login centered col" id="log-form">
