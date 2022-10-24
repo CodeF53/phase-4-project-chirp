@@ -9,7 +9,7 @@ import { ChirpEditorModal } from "./ChirpEditorModal";
 
 export function Chirps({chirp_ids, current_user}){
   return <div className="col chirps">
-    { chirp_ids.map(chirp_id=><Chirp id={chirp_id} key={chirp_id} current_user={current_user}/>) }
+    { chirp_ids.map(chirp_id=><SingleChirp id={chirp_id} key={chirp_id} current_user={current_user}/>) }
   </div>
 }
 
@@ -19,22 +19,6 @@ const fixTextarea = (id)=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-export function Chirp({id, current_user, disable_reply, noOutline}) {
-  const [chirp, setChirp] = useState({ text:"", attachment:"", reply_chirp_id:null, unix_timestamp:0, user: { display_name:"", username:"", icon:"" }, like_user_ids: [] })
-  const [showReplyEditor, setShowReplyEditor] = useState(false)
-
-  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json()).then(data=>{
-    setChirp(data)
-    setTimeout(()=>{fixTextarea(id)}, 10)
-  })}
-
-  useEffect(() => {
-    fetchChirp()
-    function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
-    window.addEventListener("resize", handleResize)
-    return () => { window.removeEventListener("resize", handleResize) }
-  }, [id])
-
   // TODO: re-chirp, re-chirp count
   // TODO: delete controls in chirp_extra_controls_button
 
@@ -42,7 +26,36 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
   // hide chirps that have a reply from their own author
   // render chirp that is being replied to
 
+export function ChirpChain({ id }) {
+
+}
+
+// takes id and chirpInput or id on its own
+// if given id it fetches the needed data
+export function SingleChirp({id, chirpInput, current_user, disable_reply, noOutline}) {
+  const [chirp, setChirp] = useState(chirpInput?chirpInput:{ text:"", like_user_ids: [], attachment:"", unix_timestamp:0, user: { display_name:"", username:"", icon:"" }})
+
+  const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
+    .then(data=>{ setChirp(data); })}
+  // only fetch the chirp if it needs it.
+  useEffect(() => { if (!chirpInput) { fetchChirp()} }, [chirpInput])
+
   console.log(chirp)
+
+  return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} noOutline={noOutline}/>
+}
+
+// Internal Chirp
+function Chirp({id, chirp, fetchChirp, current_user, disable_reply, noOutline}) {
+  const [showReplyEditor, setShowReplyEditor] = useState(false)
+
+  // event listener for fixing the text area size
+  useEffect(() => {
+    function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
+    window.addEventListener("resize", handleResize)
+    handleResize()
+    return () => { window.removeEventListener("resize", handleResize) }
+  }, [id])
 
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
 
