@@ -23,10 +23,10 @@ export function Profile ({userData, current_user, toggleEdit, fetchUserData}) {
       {userData.bio && <p className="bio">{userData.bio}</p>}
       {userData.website && <a className="website" href={userData.website}>{userData.website.split("https://").slice(-1)[0]}</a>}
       {userData.birthday>0 && <p className="birthday">Born on {userData.birthday}</p>}
-      <div className="row">
+      {userData.followers && <div className="row">
         <p className="follows">{userData.followers.length} Followers</p>
         <p className="following">{userData.followers.length} Following</p>
-      </div>
+      </div>}
     </div>
 
     {showEditorModal?<ProfileEditor userData={userData} toggleEdit={()=>toggleEdit()} exit={()=>setShowEditorModal(false)} fetchUserData={fetchUserData}/>:null}
