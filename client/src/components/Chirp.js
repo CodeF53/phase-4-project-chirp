@@ -12,6 +12,7 @@ import {ReactComponent as TrashSvg} from '../assets/trash.svg';
 import {ReactComponent as FlagSvg} from '../assets/flag.svg';
 
 import { ChirpEditorModal } from "./ChirpEditorModal";
+import { TextRenderer } from "./TextRenderer";
 
 export function Chirps({chirp_ids, current_user, removeChirp, addChirp}){
   return <div className="col chirps">
@@ -68,14 +69,6 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
   const [showReplyEditor, setShowReplyEditor] = useState(false)
   const [moreControlPopup, setMoreControlPopup] = useState(false)
 
-  // event listener for fixing the text area size
-  useEffect(() => {
-    function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
-    window.addEventListener("resize", handleResize)
-    handleResize()
-    return () => { window.removeEventListener("resize", handleResize) }
-  }, [id])
-
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
   const isChirpRechirped = chirp.rechirp_user_ids.includes(current_user.id)
   const ownsChirp = chirp.user.id === current_user.id
@@ -104,7 +97,7 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
               </div>
           </ClickAwayListener>}
         </div>
-        <textarea className="chirp_text" value={chirp.text} readOnly disabled autoCorrect="off"/>
+        <TextRenderer className="chirp_text" value={chirp.text}/>
         <div className="chirp_attachment">
 
         </div>
