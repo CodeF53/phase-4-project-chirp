@@ -1,6 +1,6 @@
 .chirpChain {
-  border: var(--chirp-outline-color) solid 1px;
-  border-bottom: none;
+  padding-top: .5rem;
+  border-bottom: var(--chirp-outline-color) solid 1px;
   /* gap: 1rem; */
   position: relative;
 }
@@ -38,6 +38,7 @@
 }
 .chirp_header > .chirp_extra_controls_button > svg {
   width: 1rem;
+  margin-right: .5rem;
 }
 .chirp_display_name {
   font-weight: bold;
@@ -70,6 +71,11 @@
 }
 
 /* chirp editor */
+.chirp_editor {
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--chirp-outline-color);
+}
+
 .chirp_editor_controls > button {
   background-color: transparent;
   display: inline-flex;

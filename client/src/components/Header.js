@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
 
+import '../style/header.css';
+
+import {ReactComponent as HomeSvg} from '../assets/header/home.svg';
+import {ReactComponent as SearchSvg} from '../assets/header/search.svg';
+import {ReactComponent as ProfileSvg} from '../assets/header/profile.svg';
+
+
 export function Header({user}) {
   // TODO: search
   // TODO: SVGs
   // TODO: logout button
+
   return <header className="header col">
-    <Link to="/"><button>home</button></Link>
-    <button>search</button>
-    <button>notifications</button>
-    <button>messages</button>
-    <Link to={user.username}><button>profile</button></Link>
-    <button>new chirp</button>
+    <Link to="/"><button aria-label="home"><HomeSvg/></button></Link>
+    <button aria-label="search"><SearchSvg/></button>
+    {/* <button aria-label="notifications"></button> */}
+    {/* <button aria-label="messages"></button> */}
+    <Link to={user.username}><button aria-label="profile"><ProfileSvg/></button></Link>
+    <div className="spacer"/>
+    <button><img src={user.icon} alt="your icon"/></button>
   </header>
 }

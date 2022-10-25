@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
 import '../style/profile.css';
 import { ProfileEditor } from "./ProfileEditor";
-
-
 
 export function Profile ({userData, current_user, toggleEdit}) {
   const [showEditorModal, setShowEditorModal] = useState(false)
@@ -23,7 +20,7 @@ export function Profile ({userData, current_user, toggleEdit}) {
       <div className="buttons row">
         <div className="spacer"/>
         {isSelf ? null : <button className="followbtn_container">{isFollowing ? "Unfollow" : "Follow"}</button>}
-        {isSelf ? <button className="followbtn_container" onClick={()=>setShowEditorModal(true)}>Edit</button> : null}
+        {isSelf ? <button className="followbtn_container" onClick={()=>setShowEditorModal(true)}>Edit Profile</button> : null}
       </div>
     </div>
     <div className="bio_container col">

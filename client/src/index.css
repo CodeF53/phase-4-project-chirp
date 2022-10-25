@@ -91,3 +91,33 @@ h1,h2,h3,h4,h5,p,span {
 .modal > button.closeModal > svg {
   width: 1.25rem;
 }
+
+/* misc css for things that aren't big enough to need a file */
+#page {
+  border-left:  1px solid var(--chirp-outline-color);
+  border-right: 1px solid var(--chirp-outline-color);
+}
+.heading {
+  height: 3rem;
+}
+.heading > a, .heading > a > button {
+  background: transparent;
+  border: none;
+  height: 3rem;
+  width: 3rem;
+}
+.heading > a > button:hover {
+  background-color: var(--background-elev-1);
+}
+.heading > a > button > svg {
+  width: 1.24rem;
+}
+.heading > .heading_text > h1 {
+  font-size: 1.25rem;
+}
+.heading > .heading_text > h3 {
+  font-size: .8rem;
+  font-weight: normal;
+  color: var(--text-2);
+  margin-bottom: .5rem;
+}
