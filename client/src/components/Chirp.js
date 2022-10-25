@@ -20,8 +20,6 @@ const fixTextarea = (id)=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-
-
 export function Chirp({id, current_user, disable_reply, noOutline}) {
   const [chirp, setChirp] = useState({ text:"", attachment:"", reply_chirp_id:null, unix_timestamp:0, user: { display_name:"", username:"", icon:"" }, like_user_ids: [] })
   const [showReplyEditor, setShowReplyEditor] = useState(false)
@@ -40,7 +38,6 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
 
   // TODO: re-chirp, re-chirp count, reply
   const rechirp = () => {
-  
     fetch(`chirps/${id}`, {
       method: "POST",
       headers: {'Content-Type': 'application/json'},

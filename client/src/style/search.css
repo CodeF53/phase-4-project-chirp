@@ -1,5 +1,5 @@
 #chirpsearch {
-   /* Add a search icon to input */
+  background-image: url('../assets/search.svg'); /*Add a search icon to input*/
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
   width: 37rem; /* Full-width */
@@ -32,7 +32,8 @@
   background-color: #eee; /* Add a hover effect to all links, except for headers */
 }
 
-/* background-image: url('/css/searchicon.png'); */
 #searchsvg {
-  height: 3rem
+  height: 3rem;
+  color: var(--blue);
 }
+
