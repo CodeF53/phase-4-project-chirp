@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :follows, only: %i[create destroy]
   # TODO: rechirps routes
-
+  post '/chirps/:chirp_id', to: 'chirps#rechirp'
   get '/feed', to: 'chirps#feed'
   get 'user/:username', to: 'users#profile' # Basically done
   patch 'user/:username', to: 'users#update'

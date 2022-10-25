@@ -32,7 +32,7 @@ export function Profile ({userData, current_user, toggleEdit}) {
       <p className="bio">{userData.bio}</p>
       <a className="website" href={userData.website}>userData.website</a>
       <p className="birthday">Born on {userData.birthday}</p>
-      <p className="follows">{userData.followers.length} Followers</p>
+      {/* <p className="follows">{userData.followers.length} Followers</p> */}
     </div>
 
     {showEditorModal?<ProfileEditor userData={userData} toggleEdit={()=>toggleEdit()} exit={()=>setShowEditorModal(false)}/>:null}

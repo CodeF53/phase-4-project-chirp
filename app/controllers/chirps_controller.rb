@@ -15,6 +15,11 @@ class ChirpsController < ApplicationController
     render json: chirp, status: :created
   end
 
+  def rechirp
+    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], attachment: params[:attachment], user: @current_user)
+    render json: chirp, status: :created
+  end
+
   # DELETE /chirps/1
   def destroy
     return render json: { errors: 'you didnt make this chirp' } if @chirp.user_id != @current_user.id

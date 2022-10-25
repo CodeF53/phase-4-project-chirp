@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+
 import '../style/chirp.css';
 import {ReactComponent as HeartFilledSvg} from '../assets/heart_filled.svg';
 import {ReactComponent as HeartEmptySvg} from '../assets/heart_empty.svg';
@@ -19,10 +20,12 @@ const fixTextarea = (id)=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
+
+
 export function Chirp({id, current_user, disable_reply, noOutline}) {
   const [chirp, setChirp] = useState({ text:"", attachment:"", reply_chirp_id:null, unix_timestamp:0, user: { display_name:"", username:"", icon:"" }, like_user_ids: [] })
   const [showReplyEditor, setShowReplyEditor] = useState(false)
-
+ 
   const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json()).then(data=>{
     setChirp(data)
     setTimeout(()=>{fixTextarea(id)}, 10)
@@ -36,6 +39,15 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
   }, [id])
 
   // TODO: re-chirp, re-chirp count, reply
+  const rechirp = () => {
+  
+    fetch(`chirps/${id}`, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text: chirp.text, reply_chirp_id: chirp.reply_chirp_id})
+    }).then(r=>{if (r.ok) { r.json().then(data=>{console.log(data)
+    })}})
+  }
   // TODO: delete controls in chirp_extra_controls_button
 
   // TODO: render reply chains and shit
@@ -68,7 +80,7 @@ export function Chirp({id, current_user, disable_reply, noOutline}) {
           <div className="spacer"/>
         </Fragment>}
 
-        <button><ReChirpSvg/></button>
+        <button className="chirpID_${id}" onClick={()=>rechirp()}><ReChirpSvg/></button>
         <div className="spacer"/>
 
         {isChirpLiked?
