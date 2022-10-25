@@ -22,7 +22,7 @@ class ChirpsController < ApplicationController
   # DELETE /chirps/1
   def destroy
     return render json: { errors: 'you didnt make this chirp' } if @chirp.user_id != @current_user.id
-    
+
     @chirp.destroy
   end
 
@@ -52,6 +52,11 @@ class ChirpsController < ApplicationController
   def feed
     chirps = (@current_user.chirps.map(&:id) + @current_user.followed_users.map(&:chirps).flatten(1).map(&:id))
 
+    render json: chirps.sort.reverse
+  end
+
+  def search
+    chirps = (Chirp.all - @current_user.chirps)
     render json: chirps.sort.reverse
   end
 

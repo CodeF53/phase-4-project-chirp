@@ -44,7 +44,7 @@ function App() {
 
       <Header user={user} logOut={()=>setUser(null)}/>
 
-      <div id='page' class='chirpWidth'><Routes>
+      <div id='page' className='chirpWidth'><Routes>
         <Route path="/:username" element={<User current_user={user}/>}/>
         <Route path="/" element={<Home current_user={user}/>}/>
         <Route path="/search" element={<Search current_user={user}/>}/>
