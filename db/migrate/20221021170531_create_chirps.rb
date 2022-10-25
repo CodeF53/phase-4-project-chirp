@@ -5,6 +5,7 @@ class CreateChirps < ActiveRecord::Migration[7.0]
       t.string :text
       t.string :attachment
       t.integer :reply_chirp_id
+      t.integer :rechirp_id
 
       t.timestamps
     end

@@ -55,7 +55,7 @@
   gap: 0.5rem;
   color: var(--chirp-button-color);
 }
-.chirp_controls_footer > button > svg, .chirp_extra_controls_button > svg {
+.rechirp_header > svg, .chirp_controls_footer > button > svg, .chirp_extra_controls_button > svg {
   width: 1.25em;
   height: 1.25em;
   fill: var(--chirp-button-color);
@@ -63,6 +63,11 @@
 .chirp_controls_footer > button > .filledHeart { fill: var(--filled-heart-color); }
 .chirp_controls_footer > button > .filledRechirp { fill: var(--filled-rechirp-color); }
 
+/* rechirp banner */
+.rechirp_header {
+  margin-left: 1rem;
+  gap: .5rem;
+}
 
 /* chirp editor */
 .chirp_editor_controls > button {
