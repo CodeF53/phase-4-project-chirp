@@ -6,14 +6,19 @@ export function Profile ({userData, current_user, toggleEdit, fetchUserData}) {
   const [showEditorModal, setShowEditorModal] = useState(false)
 
   const isSelf = userData.username === current_user.username
-  const isFollowing = current_user.id === userData.follower_ids
+  const isFollowing = userData.follower_ids.includes(current_user.id)
+
+  function flipFollow(e) {
+    fetch(`/follow/${userData.id}`, { "method":isFollowing?"DELETE":"POST" })
+      .then(r=>{if(r.ok){ fetchUserData() }})
+  }
 
   return <div className={`profile userID_${userData.id}`}>
     <div className="banner" style={{backgroundImage:`url(${userData.banner})`}}>
       <img src={userData.icon} alt={`${userData.display_name}'s icon`} className="icon"/>
       <div className="buttons row">
         <div className="spacer"/>
-        {isSelf ? null : <button className="followbtn_container">{isFollowing ? "Unfollow" : "Follow"}</button>}
+        {isSelf ? null : <button onClick={flipFollow} className="followbtn_container">{isFollowing ? "Unfollow" : "Follow"}</button>}
         {isSelf ? <button className="followbtn_container" onClick={()=>setShowEditorModal(true)}>Edit Profile</button> : null}
       </div>
     </div>

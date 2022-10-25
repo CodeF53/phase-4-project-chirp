@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   post   '/likes/:chirp_id', to: 'likes#create'
   delete '/likes/:chirp_id', to: 'likes#destroy'
 
-  resources :follows, only: %i[create destroy]
+  post '/follow/:user_id', to: 'follows#create'
+  delete '/follow/:user_id', to: 'follows#destroy'
 
   post '/rechirp/:chirp_id', to: 'chirps#rechirp'
   delete '/rechirp/:chirp_id', to: 'chirps#delete_rechirp'

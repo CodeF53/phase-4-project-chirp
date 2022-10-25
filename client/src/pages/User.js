@@ -5,7 +5,7 @@ import { Profile} from "../components/Profile"
 import {Heading} from "../components/Heading"
 
 export function User({current_user}) {
-  const [userData, setUserData] = useState({chirp_ids:[]})
+  const [userData, setUserData] = useState({chirp_ids:[], follower_ids:[]})
   const { username } = useParams()
 
   const fetchUserData = ()=> fetch(`user/${username}`)
