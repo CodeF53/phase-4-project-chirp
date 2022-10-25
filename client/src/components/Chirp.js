@@ -68,8 +68,6 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
   const [showReplyEditor, setShowReplyEditor] = useState(false)
   const [moreControlPopup, setMoreControlPopup] = useState(false)
 
-  console.log(chirp)
-
   // event listener for fixing the text area size
   useEffect(() => {
     function handleResize(e) { setTimeout(()=>{fixTextarea(id)}, 10) }
