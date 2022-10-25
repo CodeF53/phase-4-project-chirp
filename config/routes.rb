@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post '/login',    to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :chirps, only:  %i[create destroy show]
+  resources :chirps, only:  %i[index create destroy show]
 
   post   '/likes/:chirp_id', to: 'likes#create'
   delete '/likes/:chirp_id', to: 'likes#destroy'

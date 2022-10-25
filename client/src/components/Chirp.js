@@ -82,8 +82,6 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
   }
   // TODO: delete controls in chirp_extra_controls_button
 
-  }
-
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
   const isChirpRechirped = chirp.rechirp_user_ids.includes(current_user.id)
 

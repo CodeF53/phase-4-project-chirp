@@ -4,7 +4,7 @@ import { Chirps } from "../components/Chirp"
 import {ReactComponent as SearchSvg} from '../assets/search.svg';
 
 export function Search () {
-
+const [searchChirps, setSearchChirps] = useState([])
   let chirp_data=[
     {
        user_id: 1,
@@ -71,6 +71,10 @@ export function Search () {
     },
 ]
 
+fetch("/chirps").then(r=>r.json()).then((data)=>{
+  setSearchChirps(data)
+})
+
 function dropdownSuggestions() {
   // Declare variables
   var input, filter, ul, li, a, i, txtValue;
@@ -99,7 +103,7 @@ function dropdownSuggestions() {
       </div>
       <div className="spacer"/>
       <ul id="myUL" className="unfollowed_chirps not_my_chirps">
-        {chirp_data.map((chirp)=><li><a>{chirp.text}</a></li>)}
+        {searchChirps.map((chirp)=><li><a>{chirp.text}</a></li>)}
       </ul>
   
     </div>

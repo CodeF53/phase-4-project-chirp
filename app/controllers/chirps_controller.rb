@@ -2,6 +2,10 @@ class ChirpsController < ApplicationController
   skip_before_action :authorize, only: %i[show]
   before_action :set_chirp, only: %i[show destroy]
 
+  def index
+    render json: Chirp.all, status: :ok
+  end
+
   # GET /chirps/1
   def show
     render json: @chirp
