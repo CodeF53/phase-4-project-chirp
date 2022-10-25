@@ -5,6 +5,7 @@ import {ReactComponent as SearchSvg} from '../assets/search.svg';
 
 export function Search () {
 const [searchChirps, setSearchChirps] = useState([])
+const [searchTerm, setSearchTerm] = useState("")
   let chirp_data=[
     {
        user_id: 1,
@@ -71,35 +72,24 @@ const [searchChirps, setSearchChirps] = useState([])
     },
 ]
 
-fetch("/chirps").then(r=>r.json()).then((data)=>{
-  setSearchChirps(data)
-})
 
-function dropdownSuggestions() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('myInput');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
-  console.log("I've been activated")
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
+useEffect(() => {
+  fetch("/search").then(r=>r.json()).then((data)=>{
+    setSearchChirps(data.filter((entry) => entry.created >= Date() && entry.includes(searchTerm)))
+  })
+}, [])
+
+
+
+function filterResults () {
+
 }
 
   return (
     <div className="col">
       <div className="row">
       <SearchSvg id="searchsvg"/>
-      <input type="text" id="chirpsearch" onChange={()=>dropdownSuggestions()} placeholder="Search chirps..."></input>
+      <input type="text" id="chirpsearch" onChange={(e)=>setSearchTerm(e.target.value)} placeholder="Search chirps..."></input>
       </div>
       <div className="spacer"/>
       <ul id="myUL" className="unfollowed_chirps not_my_chirps">

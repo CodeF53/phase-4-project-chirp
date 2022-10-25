@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/rechirp/:chirp_id', to: 'chirps#rechirp'
   delete '/rechirp/:chirp_id', to: 'chirps#delete_rechirp'
 
+  get '/search', to: 'chirps#search'
   get '/feed', to: 'chirps#feed'
   get 'user/:username', to: 'users#profile' # Basically done
   patch 'user/:username', to: 'users#update'
