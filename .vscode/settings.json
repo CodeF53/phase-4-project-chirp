@@ -1,4 +1,15 @@
 {
   "editor.tabSize": 2,
-  "editor.detectIndentation": false
+  "editor.detectIndentation": false,
+  "explorer.fileNesting.patterns":{
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "Gemfile": "Gemfile.lock, .ruby-version, Rakefile, config.ru",
+    ".gitattributes": ".gitignore",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
+    "index.html": "manifest.json, favicon.ico, logo*.png, robots.txt"
+  }
 }

@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
 import '../style/profile.css';
 import { ProfileEditor } from "./ProfileEditor";
 
-
-
-export function Profile ({userData, current_user, toggleEdit}) {
+export function Profile ({userData, current_user, toggleEdit, fetchUserData}) {
   const [showEditorModal, setShowEditorModal] = useState(false)
-  const [user, setUser] = useState({ username:"", icon:"", banner:"", display_name:"", bio:"", website:"", birthday: 0, pinned_chirp_id: 0  })
-
-  console.log('profile.js userData', userData)
-
-  useEffect(() => { fetch(`users/${userData.username}`).then(r=>r.json())
-    .then(data=>{ setUser(data) })}, [userData])
 
   const isSelf = userData.username === current_user.username
   const isFollowing = current_user.id === userData.follower_ids
@@ -29,14 +20,15 @@ export function Profile ({userData, current_user, toggleEdit}) {
     <div className="bio_container col">
       <h1 className="display_name">{userData.display_name}</h1>
       <h2 className="username">@{userData.username}</h2>
-      <p className="bio">{userData.bio}</p>
-      <a className="website" href={userData.website}>userData.website</a>
-      <p className="birthday">Born on {userData.birthday}</p>
-      <p className="follows">{userData.followers.length} Followers</p>
+      {userData.bio && <p className="bio">{userData.bio}</p>}
+      {userData.website && <a className="website" href={userData.website}>{userData.website.split("https://").slice(-1)[0]}</a>}
+      {userData.birthday>0 && <p className="birthday">Born on {userData.birthday}</p>}
+      {userData.followers && <div className="row">
+        <p className="follows">{userData.followers.length} Followers</p>
+        <p className="following">{userData.followers.length} Following</p>
+      </div>}
     </div>
 
-    {showEditorModal?<ProfileEditor userData={userData} toggleEdit={()=>toggleEdit()} exit={()=>setShowEditorModal(false)}/>:null}
+    {showEditorModal?<ProfileEditor userData={userData} toggleEdit={()=>toggleEdit()} exit={()=>setShowEditorModal(false)} fetchUserData={fetchUserData}/>:null}
   </div>
 }
-
-// i like big tabs and i cannot lie
