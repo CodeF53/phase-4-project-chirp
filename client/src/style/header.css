@@ -1,0 +1,18 @@
+.header {
+  height: calc(100vh - 2rem);
+  padding: 1rem;
+  gap:1rem;
+}
+.header > a > button > svg, .header > button > svg  {
+  width: 1.75rem;
+  margin: .25rem;
+}
+.header > button > img {
+  width: 2.5rem;
+  border-radius: 3rem;
+}
+.header button {
+  width: 2.5rem;
+  border: none;
+  background: transparent;
+}

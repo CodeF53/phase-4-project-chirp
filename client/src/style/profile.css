@@ -1,5 +1,7 @@
 .profile {
-  max-width: var(--chirp-width)
+  max-width: var(--chirp-width);
+  border-bottom: var(--chirp-outline-color) solid 1px;
+  padding-bottom: 1rem;
 }
 
 .profile > .banner {
@@ -19,14 +21,22 @@
 }
 .profile > .banner > .buttons {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 1rem);
   bottom: -3rem;
   gap: .5rem;
+  padding-right: 1rem;
 }
 .profile > .banner > .buttons > button {
   height: 2rem;
   min-width: 2rem;
   border-radius: 1rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--chirp-outline-color);
+  background-color: transparent;
+}
+.profile > .bio_container {
+  padding-left: 1rem;
 }
 .profile > .bio_container > h1 {
   margin-top: 5rem;

@@ -39,12 +39,16 @@ function App() {
   // TODO: find people view
   return (
     <div className={`App row ${isDarkMode?"dark":""}`} >
+      <div className='spacer'/>
+
       <Header user={user}/>
 
-      <Routes>
-        <Route path="/" element={<Home current_user={user}/>}/>
+      <div id='page' class='chirpWidth'><Routes>
         <Route path="/:username" element={<User current_user={user}/>}/>
-      </Routes>
+        <Route path="/" element={<Home current_user={user}/>}/>
+      </Routes></div>
+
+      <div className='spacer'/>
     </div>
   );
 }
