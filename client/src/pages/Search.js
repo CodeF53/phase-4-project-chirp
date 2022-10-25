@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import '../style/search.css';
 import { Chirps } from "../components/Chirp"
+import {ReactComponent as SearchSvg} from '../assets/search.svg';
 
 export function Search () {
 
@@ -92,7 +93,10 @@ function dropdownSuggestions() {
 
   return (
     <div className="col">
-      <input type="text" id="myInput" onChange={()=>dropdownSuggestions()} placeholder="Search chirps..."></input>
+      <div className="row">
+      <SearchSvg id="searchsvg"/>
+      <input type="text" id="chirpsearch" onChange={()=>dropdownSuggestions()} placeholder="Search chirps..."></input>
+      </div>
       <div className="spacer"/>
       <ul id="myUL" className="unfollowed_chirps not_my_chirps">
         {chirp_data.map((chirp)=><li><a>{chirp.text}</a></li>)}
