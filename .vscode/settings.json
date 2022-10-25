@@ -9,6 +9,7 @@
     "Gemfile": "Gemfile.lock, .ruby-version, Rakefile, config.ru",
     ".gitattributes": ".gitignore",
     "tsconfig.json": "tsconfig.*.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml"
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
+    "index.html": "manifest.json, favicon.ico, logo*.png, robots.txt"
   }
 }
