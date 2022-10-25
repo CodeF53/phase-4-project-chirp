@@ -1,6 +1,4 @@
 class FollowsController < ApplicationController
-  before_action :set_follow, only: %i[destroy]
-
   # POST /follows
   def create
     return render json: { errors: ['you cant follow yourself'] }, status: :bad_request if @current_user.id == params[:user_id]

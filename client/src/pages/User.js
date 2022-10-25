@@ -5,15 +5,13 @@ import { Profile} from "../components/Profile"
 import {Heading} from "../components/Heading"
 
 export function User({current_user}) {
-  const [userData, setUserData] = useState({chirp_ids:[]})
+  const [userData, setUserData] = useState({chirp_ids:[], follower_ids:[], followed_user_ids: []})
   const { username } = useParams()
 
   const fetchUserData = ()=> fetch(`user/${username}`)
     .then(r=>r.json()).then(data=>{ setUserData(data) })
 
   useEffect(() => { fetchUserData() }, [username])
-
-  console.log('user.js userData', userData)
 
   return <div>
     <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>

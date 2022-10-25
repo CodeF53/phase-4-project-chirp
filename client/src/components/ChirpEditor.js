@@ -4,11 +4,11 @@ import {ReactComponent as ImgSvg} from '../assets/add_img.svg';
 
 const fixTextarea = ()=>{
   let chirpTextNode = document.querySelector(`.chirp_editor > .chirp_content_container > textarea.chirp_editor_text`)
-  chirpTextNode.style.height = `calc(${chirpTextNode.value.split("\n").length} * 1.5rem)`
+  chirpTextNode.style.height = `calc(${chirpTextNode.value.split("\n").length} * 1.70rem)`
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-export function ChirpEditor({current_user, addChirp, reply_chirp_id, placeholder="What's Happening?", onSuccess}) {
+export function ChirpEditor({current_user, addChirp, reply_chirp_id, placeholder="What's Happening?", onSuccess=()=>{}}) {
   const [chirpText, setChirpText] = useState("")
   useEffect(()=>{ fixTextarea() }, [chirpText])
 

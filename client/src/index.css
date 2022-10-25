@@ -57,9 +57,7 @@ h1,h2,h3,h4,h5,p,span {
   margin: 0;
 }
 
-.popup {
-  position: absolute;
-}
+/* modals */
 .modalOverlay {
   position: fixed;
   z-index: 100;
@@ -90,6 +88,29 @@ h1,h2,h3,h4,h5,p,span {
 }
 .modal > button.closeModal > svg {
   width: 1.25rem;
+}
+
+/* popups */
+.popup {
+  position: absolute;
+  width: 12rem;
+  background-color: var(--background-color);
+  box-shadow: var(--popup-shadow);
+  z-index: 100;
+}
+.popup > button {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  border: none;
+  width: 12rem;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 1rem;
+  gap: 1rem;
+}
+.popup > button:hover {
+  background-color: var(--background-elev-1);
 }
 
 /* misc css for things that aren't big enough to need a file */

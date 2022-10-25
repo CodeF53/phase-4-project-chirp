@@ -2,6 +2,7 @@
   height: calc(100vh - 2rem);
   padding: 1rem;
   gap:1rem;
+  position: relative;
 }
 .header > a > button > svg, .header > button > svg  {
   width: 1.75rem;
@@ -15,4 +16,13 @@
   width: 2.5rem;
   border: none;
   background: transparent;
+}
+
+/* popup */
+.userControl {
+  left: 1rem;
+  bottom: 5rem;
+}
+.userControl > button {
+  width: 12rem;
 }

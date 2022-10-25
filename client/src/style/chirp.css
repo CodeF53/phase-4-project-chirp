@@ -114,24 +114,8 @@ textarea.chirp_editor_text {
 
 /* control popup */
 .chirpControl {
-  box-shadow: var(--popup-shadow);
   right: 1rem;
   top: 1rem;
-}
-.chirpControl > button {
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  background-color: var(--background-color);
-  border: none;
-  width: 12rem;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 1rem;
-  gap: 1rem;
-}
-.chirpControl > button:hover {
-  background-color: var(--background-elev-1);
 }
 .chirpControl > button.delete {
   color: var(--trash-color);

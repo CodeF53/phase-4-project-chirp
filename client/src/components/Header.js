@@ -9,13 +9,14 @@ import {ReactComponent as ProfileSvg} from '../assets/header/profile.svg';
 import {ReactComponent as HomeFilledSvg} from '../assets/header/homefilled.svg';
 import {ReactComponent as SearchFilledSvg} from '../assets/header/searchfilled.svg';
 import {ReactComponent as ProfileFilledSvg} from '../assets/header/profilefilled.svg';
+import { useState } from "react";
+import ClickAwayListener from "react-click-away-listener";
 
-export function Header({user}) {
-  // TODO: SVGs
+export function Header({user, logOut}) {
   let {paramaters} = useParams()
   const [path, setPath] = useState("")
   console.log('path', path)
-  // TODO: logout button
+  const [LogoutPopup, setLogoutPopup] = useState(false)
 
   return <header className="header col" onClick={()=>setPath(window.location.href.split('/').slice(-1)[0])}>
     <Link to="/"><button aria-label="home" >{path === ""? <HomeFilledSvg/>:<HomeSvg/>}</button></Link>
@@ -24,6 +25,12 @@ export function Header({user}) {
     {/* <button aria-label="messages"></button> */}
     <Link to={user.username}><button aria-label="profile">{path !== "" && path !== "search" ? <ProfileFilledSvg/>:<ProfileSvg/>}</button></Link>
     <div className="spacer"/>
-    <button><img src={user.icon} alt="your icon"/></button>
+    <button onClick={()=>{setLogoutPopup(true)}}><img src={user.icon} alt="your icon"/></button>
+
+    {LogoutPopup && <ClickAwayListener onClickAway={()=>setLogoutPopup(false)}>
+      <div className="userControl popup col" onClick={()=>fetch('/logout', {method:"DELETE"}).then(r=>{if(r.ok){logOut()}})}>
+        <button>Log Out @{user.username}</button>
+      </div>
+    </ClickAwayListener>}
   </header>
 }
