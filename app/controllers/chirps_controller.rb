@@ -18,7 +18,7 @@ class ChirpsController < ApplicationController
   # DELETE /chirps/1
   def destroy
     return render json: { errors: 'you didnt make this chirp' } if @chirp.user_id != @current_user.id
-
+    
     @chirp.destroy
   end
 
