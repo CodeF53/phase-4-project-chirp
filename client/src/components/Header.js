@@ -6,7 +6,7 @@ export function Header({user}) {
   // TODO: logout button
   return <header className="header col">
     <Link to="/"><button>home</button></Link>
-    <button>search</button>
+    <Link to="/search"><button>search</button></Link>
     <button>notifications</button>
     <button>messages</button>
     <Link to={user.username}><button>profile</button></Link>
