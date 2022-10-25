@@ -8,13 +8,12 @@ import {ReactComponent as ProfileSvg} from '../assets/header/profile.svg';
 
 
 export function Header({user}) {
-  // TODO: search
   // TODO: SVGs
   // TODO: logout button
 
   return <header className="header col">
     <Link to="/"><button aria-label="home"><HomeSvg/></button></Link>
-    <button aria-label="search"><SearchSvg/></button>
+    <Link to="/search"><button aria-label="search"><SearchSvg/></button></Link>
     {/* <button aria-label="notifications"></button> */}
     {/* <button aria-label="messages"></button> */}
     <Link to={user.username}><button aria-label="profile"><ProfileSvg/></button></Link>

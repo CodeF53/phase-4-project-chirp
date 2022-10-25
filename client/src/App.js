@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { LoginSignup } from './pages/LoginSignup';
 import { User } from './pages/User';
+import {Search} from './pages/Search'
 
 function App() {
   // persistent user through local storage
@@ -46,6 +47,7 @@ function App() {
       <div id='page' class='chirpWidth'><Routes>
         <Route path="/:username" element={<User current_user={user}/>}/>
         <Route path="/" element={<Home current_user={user}/>}/>
+        <Route path="/search" element={<Search current_user={user}/>}/>
       </Routes></div>
 
       <div className='spacer'/>
