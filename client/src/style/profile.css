@@ -43,3 +43,6 @@
 .editProfileModal > form > div.labeled_input > input {
   width: 25rem;
 }
+.editProfileModal > form > div.labeled_input  {
+  border: solid var(--text-2);
+}

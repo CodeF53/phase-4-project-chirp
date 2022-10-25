@@ -18,6 +18,8 @@ export function User({current_user}) {
     setUserData(data)
   })}, [username])
 
+  console.log('user.js userData', userData)
+
   return <div>
 
     <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>
