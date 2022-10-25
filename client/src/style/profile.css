@@ -56,3 +56,9 @@
 .editProfileModal > form > div.labeled_input  {
   border: solid var(--text-2);
 }
+
+.followsYou {
+  background-color: var(--background-elev-1);
+  font-size: .75rem;
+  padding: .1rem;
+}

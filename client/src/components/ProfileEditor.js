@@ -16,7 +16,6 @@ export function ProfileEditor ({userData, exit, fetchUserData}) {
       }).then(r=>{if (r.ok) { r.json().then((data) => {
         fetchUserData()
         exit()
-        console.log(data)
       })}})
   }
 
