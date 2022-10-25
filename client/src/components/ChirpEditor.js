@@ -8,7 +8,7 @@ const fixTextarea = ()=>{
   chirpTextNode.style.width = chirpTextNode.parentNode.width
 }
 
-export function ChirpEditor({current_user, addChirp, reply_chirp_id, placeholder="What's Happening?", onSuccess}) {
+export function ChirpEditor({current_user, addChirp, reply_chirp_id, placeholder="What's Happening?", onSuccess=()=>{}}) {
   const [chirpText, setChirpText] = useState("")
   useEffect(()=>{ fixTextarea() }, [chirpText])
 

@@ -42,7 +42,7 @@ function App() {
     <div className={`App row ${isDarkMode?"dark":""}`} >
       <div className='spacer'/>
 
-      <Header user={user}/>
+      <Header user={user} logOut={()=>setUser(null)}/>
 
       <div id='page' class='chirpWidth'><Routes>
         <Route path="/:username" element={<User current_user={user}/>}/>
