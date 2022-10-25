@@ -2,19 +2,21 @@ import { useEffect, useState } from "react"
 import { LabeledInput } from "./LabeledInput"
 import {ReactComponent as CloseSvg} from '../assets/close.svg';
 
-export function ProfileEditor ({userData, toggleEdit, exit}) {
+export function ProfileEditor ({userData, exit, fetchUserData}) {
   const [profileInfo, setProfileInfo] = useState({userData})
 
   const handleEdit = ({target:{name, value}})=>setProfileInfo(profileInfo=>({...profileInfo, [name]: value}))
-    
+
   function patchProfile (e) {
-    // e.preventDefault()
+    e.preventDefault()
     fetch(`/user/${userData.username}`, {
       method: "PATCH",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(profileInfo)
       }).then(r=>{if (r.ok) { r.json().then((data) => {
-      console.log(data)
+        fetchUserData()
+        exit()
+        console.log(data)
       })}})
   }
 
