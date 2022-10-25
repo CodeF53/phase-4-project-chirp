@@ -9,9 +9,12 @@ export function Home({current_user}) {
     setChirp_ids(data)
   })}, [])
 
+  const removeChirp = chirp_id => setChirp_ids(chirp_ids.filter(id=>id!==chirp_id))
+  const addChirp = chirp_id => setChirp_ids([chirp_id, ...chirp_ids])
+
   return <div className="chirpWidth">
     <Heading text="Home" showBackButton={false} showChirpCount={false} />
-    <ChirpEditor current_user={current_user} addChirp={(chirp_id)=>{setChirp_ids([chirp_id, ...chirp_ids])}}/>
-    <Chirps chirp_ids={chirp_ids} current_user={current_user}/>
+    <ChirpEditor current_user={current_user} addChirp={addChirp} removeChirp={removeChirp}/>
+    <Chirps chirp_ids={chirp_ids} current_user={current_user} addChirp={addChirp} removeChirp={removeChirp}/>
   </div>
 }

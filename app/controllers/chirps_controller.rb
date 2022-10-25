@@ -15,16 +15,33 @@ class ChirpsController < ApplicationController
     render json: chirp, status: :created
   end
 
-  def rechirp
-    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], attachment: params[:attachment], user: @current_user)
-    render json: chirp, status: :created
-  end
-
   # DELETE /chirps/1
   def destroy
     return render json: { errors: 'you didnt make this chirp' } if @chirp.user_id != @current_user.id
 
     @chirp.destroy
+  end
+
+  # POST /rechirp/:chirp_id
+  def rechirp
+    chirp_to_rechirp = Chirp.find(params[:chirp_id])
+
+    if chirp_to_rechirp.rechirps.map(&:user_id).include?(@current_user.id)
+      return render json: { errors: 'you have already rechirped this!' }, status: :conflict
+    end
+
+    chirp = Chirp.create!(rechirp_id: params[:chirp_id], user: @current_user)
+    render json: chirp, status: :created
+  end
+
+  def delete_rechirp
+    chirp_to_un_rechirp = Chirp.find(params[:chirp_id])
+
+    rechirps_to_remove = chirp_to_un_rechirp.rechirps.select { |rechirp| rechirp.user_id == @current_user.id }
+
+    return render json: { errors: 'you havent rechirped this!' }, status: :conflict if rechirps_to_remove.empty?
+
+    rechirps_to_remove.map(&:destroy)
   end
 
   # GET /feed

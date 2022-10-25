@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   delete '/likes/:chirp_id', to: 'likes#destroy'
 
   resources :follows, only: %i[create destroy]
-  # TODO: rechirps routes
-  post '/chirps/:chirp_id', to: 'chirps#rechirp'
+
+  post '/rechirp/:chirp_id', to: 'chirps#rechirp'
+  delete '/rechirp/:chirp_id', to: 'chirps#delete_rechirp'
+
   get '/feed', to: 'chirps#feed'
   get 'user/:username', to: 'users#profile' # Basically done
   patch 'user/:username', to: 'users#update'
