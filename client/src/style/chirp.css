@@ -97,9 +97,6 @@
   color: white;
 }
 
-.chirp_editor_attachment_viewer {
-
-}
 .chirp_editor_attachment_viewer > .row {
   gap: .5rem;
 }
@@ -187,4 +184,17 @@ textarea.chirp_editor_text {
 .bigChirp > .chirp_controls_footer > button > svg {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+/* images */
+.chirp_images {
+  width: calc(100% - 2rem);
+  margin: 1rem;
+}
+.chirp_images img {
+  width: 100%;
+  border-radius: 1rem;
+}
+.chirp_images_2, .chirp_images_3, .chirp_images_3 > div, .chirp_images_4 > div {
+  gap: 1rem;
 }
