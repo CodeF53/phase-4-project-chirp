@@ -23,7 +23,7 @@ export function ChirpView({ current_user }) {
       <Fragment>
         <LargeChirp id={id} chirp={chirp} current_user={current_user} addChirp={addChirp} removeChirp={removeChirp} fetchChirp={fetchChirp}/>
         <ChirpEditor current_user={current_user} addChirp={addChirp} removeChirp={removeChirp} placeholder="Chirp your reply" reply_chirp_id={id}/>
-        {reply_ids.map(reply=><SingleChirp id={reply} current_user={current_user}/>)}
+        {reply_ids.map(reply_id=><SingleChirp key={reply_id} id={reply_id} current_user={current_user}/>)}
       </Fragment>:
       <Fragment>
         <h1>Error 404 Chirp Not Found</h1>

@@ -24,9 +24,10 @@
   padding: .75rem;
   padding-bottom: 0;
 }
-.chirp_icon_container > img {
+.chirp_icon_container img {
   max-width: 100%;
   border-radius: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .chirp_content_container {
@@ -40,8 +41,13 @@
   width: 1rem;
   margin-right: .5rem;
 }
+.chirp_header > a { text-decoration: none; gap: 0.25rem; }
 .chirp_display_name {
+  color: var(--text-1);
   font-weight: bold;
+}
+.chirp_username {
+  color: var(--text-2);
 }
 
 /* buttons! */
