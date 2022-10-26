@@ -55,6 +55,7 @@
   margin-bottom: 1rem;
 }
 .chirp_controls_footer > button, .chirp_extra_controls_button {
+  position: relative;
   border: none;
   background-color: transparent;
   display: inline-flex;
