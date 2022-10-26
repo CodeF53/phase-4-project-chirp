@@ -15,6 +15,7 @@ import {ReactComponent as LinkSvg} from '../assets/link.svg';
 import { ChirpEditorModal } from "./ChirpEditorModal";
 import { TextRenderer } from "./TextRenderer";
 import { Link, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 export function Chirps({chirp_ids, current_user, removeChirp, addChirp}){
   return <div className="col chirps">
@@ -90,8 +91,7 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
             <span className="chirp_username">{"@" + chirp.user.username}</span>
           </Link>
           <span className="chirp_spacer">·</span>
-          {/* TODO: PARSE DATE TIME */}
-          <span className="chirp_time">{chirp.unix_timestamp}</span>
+          <span className="chirp_time">{ dayjs(chirp.unix_created).fromNow() }</span>
           <div className="spacer"/>
           <button className="chirp_extra_controls_button" onClick={(e)=>{e.stopPropagation();setMoreControlPopup(true)}}><MoreControlsSvg/></button>
           {moreControlPopup && <MoreControlPopup disable_self={(e)=>{e.stopPropagation();setMoreControlPopup(false)}} ownsChirp={ownsChirp} deleteThing={()=>fetch(`chirps/${id}`, { method: "DELETE" }).then(r=>{if(r.ok){fetchChirp(); removeChirp(id)}})}/>}
@@ -130,9 +130,7 @@ export function LargeChirp({id, chirp, fetchChirp, current_user, addChirp, remov
     <ChirpImages image_urls={chirp.image_urls}/>
 
     <div className="date_stats row">
-      <span>TODO:ADD_TIME</span>
-      <span className="chirp_spacer">·</span>
-      <span>TODO:ADD_DATE</span>
+      <span>{ dayjs(chirp.unix_created).fromNow() }</span>
       <span className="chirp_spacer">·</span>
       <span>{chirp.user.display_name}</span>
     </div>
