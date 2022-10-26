@@ -55,6 +55,7 @@ class ChirpsController < ApplicationController
     render json: chirps.sort.reverse
   end
 
+  # GET /search
   def search
     chirps = (Chirp.all - @current_user.chirps)
     render json: chirps.sort.reverse

@@ -21,6 +21,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # serialize data nice
 gem 'active_model_serializers'
 
+# create websockets for messaging and other user-to-user connections
+# gem 'action-cable'
+
 # secure logins'
 gem 'bcrypt'
 
