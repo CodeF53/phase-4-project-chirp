@@ -12,4 +12,19 @@ class User < ApplicationRecord
 
   has_many :likes
   has_many :liked_chirps, through: :likes, foreign_key: :chirp
+
+  has_one_attached :icon
+  has_one_attached :banner
+
+  def icon_url
+    return Rails.application.routes.url_helpers.url_for(icon) if icon.attached?
+
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIqcwio8gGLw-sSaYm0SYl13oLFpscvutmkk8l95s33AM3_kD0HivHJLzMF_t6w-VI2ow&usqp=CAU'
+  end
+
+  def banner_url
+    return Rails.application.routes.url_helpers.url_for(banner) if banner.attached?
+
+    'https://i.imgur.com/rgnIigK.png'
+  end
 end
