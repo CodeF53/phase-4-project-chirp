@@ -27,6 +27,7 @@ export function ChirpChain({ id, current_user, removeChirp, addChirp }) {
 
   const fetchChirp = ()=>{ fetch(`chirps/${id}`).then(r=>r.json())
   .then(data=>{ setChirp(data); })}
+  // eslint-disable-next-line
   useEffect(() => { fetchChirp() }, [])
 
   if (chirp.has_reply_from_self) return null
@@ -54,6 +55,7 @@ export function SingleChirp({id, chirpInput, current_user, disable_reply, showRe
   const fetchChirp = ()=>{ fetch(`/chirps/${id}`).then(r=>r.json())
   .then(data=>{ setChirp(data); })}
   // only fetch the chirp if it needs it.
+  // eslint-disable-next-line
   useEffect(() => { if (!chirpInput) { fetchChirp()} }, [chirpInput])
 
 
