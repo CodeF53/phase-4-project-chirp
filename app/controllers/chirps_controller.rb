@@ -14,7 +14,7 @@ class ChirpsController < ApplicationController
   # POST /chirps
   def create
     # TODO: allow all params
-    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], attachment: params[:attachment], user: @current_user)
+    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], images: params[:images], user: @current_user)
 
     render json: chirp, status: :created
   end

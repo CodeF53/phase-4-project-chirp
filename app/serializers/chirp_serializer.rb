@@ -1,5 +1,6 @@
 class ChirpSerializer < ActiveModel::Serializer
-  attributes :id, :text, :attachment, :reply_chirp_id, :like_user_ids, :reply_chirp, :reply_ids, :has_reply_from_self, :rechirp_user_ids, :rechirp
+  attributes :id, :text, :attachment, :reply_chirp_id, :like_user_ids, :reply_chirp,
+             :reply_ids, :has_reply_from_self, :rechirp_user_ids, :rechirp, :images
   # TODO: include rechirp_ids
 
   def has_reply_from_self
@@ -29,6 +30,10 @@ class ChirpSerializer < ActiveModel::Serializer
 
   def rechirp_user_ids
     object.rechirps.map(&:user_id)
+  end
+
+  def images
+    object.blobs
   end
 
   has_one :user
