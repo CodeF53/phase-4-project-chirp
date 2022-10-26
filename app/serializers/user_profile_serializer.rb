@@ -14,4 +14,12 @@ class UserProfileSerializer < ActiveModel::Serializer
   def followed_user_ids
     object.followers.map(&:id)
   end
+
+  def icon
+    object.icon_url
+  end
+
+  def banner
+    object.banner_url
+  end
 end
