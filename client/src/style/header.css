@@ -2,7 +2,8 @@
   height: calc(100vh - 2rem);
   padding: 1rem;
   gap:1rem;
-  position: relative;
+  position: sticky;
+  top: 0;
 }
 .header > a > button > svg, .header > button > svg  {
   width: 1.75rem;
