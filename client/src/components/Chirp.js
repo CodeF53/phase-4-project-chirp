@@ -181,7 +181,7 @@ function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, f
 
 
     {disable_reply?null:<Fragment>
-      <button onClick={()=>setShowReplyEditor(true)}><ReplySvg/>{chirp.reply_ids.length}</button>
+      <button onClick={e=>{e.stopPropagation();setShowReplyEditor(true)}}><ReplySvg/>{chirp.reply_ids.length}</button>
       <div className="spacer"/>
     </Fragment>}
 
