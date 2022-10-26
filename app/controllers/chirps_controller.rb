@@ -13,8 +13,9 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
-    # TODO: allow all params
-    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], images: params[:images], user: @current_user)
+    chirp = Chirp.create(chirp_params)
+    chirp.update!(user: @current_user)
+    chirp.save!
 
     render json: chirp, status: :created
   end
@@ -62,6 +63,10 @@ class ChirpsController < ApplicationController
   end
 
   private
+
+  def chirp_params
+    params.permit(:text, reply_chirp_id: nil, images: [])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_chirp
