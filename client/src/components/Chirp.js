@@ -13,7 +13,7 @@ import {ReactComponent as FlagSvg} from '../assets/flag.svg';
 
 import { ChirpEditorModal } from "./ChirpEditorModal";
 import { TextRenderer } from "./TextRenderer";
-import { fetchDelete, fetchPost } from "../util";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Chirps({chirp_ids, current_user, removeChirp, addChirp}){
   return <div className="col chirps">
@@ -32,9 +32,10 @@ export function ChirpChain({ id, current_user, removeChirp, addChirp }) {
 
   const chain = recursive_chirp_to_chirp_array(chirp).reverse()
 
-  // return <div className="chirpChain col"><RecursiveChirp chirp={chirp} current_user={current_user}/></div>
+  if (chain.length === 0) return null
+
   return <div className="chirpChain col">
-    {chain.slice(0,-1).map(chirp=><SingleChirp id={chirp.id} chirpInput={chirp} current_user={current_user} showReplyNubbin={true} addChirp={addChirp} removeChirp={removeChirp}/>)}
+    {chain.slice(0,-1).map(chirp=><SingleChirp key={chirp.id} id={chirp.id} chirpInput={chirp} current_user={current_user} showReplyNubbin={true} addChirp={addChirp} removeChirp={removeChirp}/>)}
     <SingleChirp id={chain.slice(-1)[0].id} chirpInput={chirp} current_user={current_user} addChirp={addChirp} removeChirp={removeChirp}/>
   </div>
 }
@@ -54,36 +55,43 @@ export function SingleChirp({id, chirpInput, current_user, disable_reply, showRe
   // only fetch the chirp if it needs it.
   useEffect(() => { if (!chirpInput) { fetchChirp()} }, [chirpInput])
 
-  if (!chirp.text) return null
 
   if (chirp.rechirp) return <SingleChirp id={chirp.rechirp.id} chirpInput={chirp.rechirp} current_user={current_user} addChirp={addChirp} rechirperUserName={chirp.user.display_name} rechirp_id={chirp.id} removeChirp={removeChirp}/>
+
+  if (!chirp.text) return null
 
   return <Chirp id={id} chirp={chirp} fetchChirp={fetchChirp} current_user={current_user} disable_reply={disable_reply} showReplyNubbin={showReplyNubbin} addChirp={addChirp} rechirperUserName={rechirperUserName} rechirp_id={rechirp_id} removeChirp={removeChirp}/>
 }
 
 // Internal Chirp
 function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNubbin, addChirp, removeChirp, rechirperUserName, rechirp_id}) {
+  const navigate = useNavigate()
+
   const [moreControlPopup, setMoreControlPopup] = useState(false)
 
   const ownsChirp = chirp.user.id === current_user.id
 
-  return <div className={`col chirpID_${id}`}>
+  return <div className={`col chirpID_${id}`} onClick={()=>navigate(`/chirp/${id}`)}>
     {rechirperUserName? <div className="rechirp_header row"><ReChirpSvg/> {rechirperUserName} Rechirped</div>:null}
     <div className="row">
       <div className="chirp_icon_container col">
-        <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+        <Link to={`/${chirp.user.username}`}>
+          <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+        </Link>
         {showReplyNubbin?<div className="chirpChainNubbin"/>:null}
       </div>
       <div className="chirp_content_container col">
         <div className="chirp_header row">
-          <span className="chirp_display_name">{chirp.user.display_name}</span>
-          <span className="chirp_username">{"@" + chirp.user.username}</span>
+          <Link to={`/${chirp.user.username}`} className="row">
+            <span className="chirp_display_name">{chirp.user.display_name}</span>
+            <span className="chirp_username">{"@" + chirp.user.username}</span>
+          </Link>
           <span className="chirp_spacer">·</span>
           {/* TODO: PARSE DATE TIME */}
           <span className="chirp_time">{chirp.unix_timestamp}</span>
           <div className="spacer"/>
-          <button className="chirp_extra_controls_button" onClick={()=>setMoreControlPopup(true)}><MoreControlsSvg/></button>
-          {moreControlPopup && <MoreControlPopup disable_self={()=>setMoreControlPopup(false)} ownsChirp={ownsChirp} deleteThing={()=>fetch(`chirps/${id}`, { method: "DELETE" }).then(r=>{if(r.ok){fetchChirp(); removeChirp(id)}})}/>}
+          <button className="chirp_extra_controls_button" onClick={(e)=>{e.stopPropagation();setMoreControlPopup(true)}}><MoreControlsSvg/></button>
+          {moreControlPopup && <MoreControlPopup disable_self={(e)=>{e.stopPropagation();setMoreControlPopup(false)}} ownsChirp={ownsChirp} deleteThing={()=>fetch(`chirps/${id}`, { method: "DELETE" }).then(r=>{if(r.ok){fetchChirp(); removeChirp(id)}})}/>}
         </div>
         <TextRenderer className="chirp_text" value={chirp.text}/>
         <div className="chirp_attachment">
@@ -103,7 +111,9 @@ export function LargeChirp({id, chirp, fetchChirp, current_user, addChirp, remov
   return <div className={`col chirpID_${id} bigChirp`}>
     <div className="large_chirp_head row">
       <div className="chirp_icon_container col">
-        <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+        <Link to={`/${chirp.user.username}`}>
+          <img src={chirp.user.icon} alt={`${chirp.user.display_name}'s icon`}/>
+        </Link>
       </div>
       <div className="large_chirp_user_info col">
         <span className="chirp_display_name">{chirp.user.display_name}</span>
@@ -146,7 +156,8 @@ function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, f
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
   const isChirpRechirped = chirp.rechirp_user_ids.includes(current_user.id)
 
-  function handleRechirpClick() {
+  function handleRechirpClick(e) {
+    e.stopPropagation();
     fetch(`/rechirp/${id}`, { method: isChirpRechirped?"DELETE":"POST" }).then(r=>{
       fetchChirp();
       if(r.ok) {
@@ -155,7 +166,8 @@ function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, f
       }})
   }
 
-  function handleLikeClick() {
+  function handleLikeClick(e) {
+    e.stopPropagation();
     fetch(`/likes/${id}`, { method: isChirpLiked?"DELETE":"POST" }).then(r=>
       { fetchChirp() })
   }

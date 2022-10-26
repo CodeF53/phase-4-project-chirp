@@ -142,3 +142,6 @@ h1,h2,h3,h4,h5,p,span {
   color: var(--text-2);
   margin-bottom: .5rem;
 }
+
+/* by default, links don't look like links */
+a { text-decoration: none; color: var(--text-1); }
