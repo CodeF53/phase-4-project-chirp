@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { LoginSignup } from './pages/LoginSignup';
 import { User } from './pages/User';
-import {Search} from './pages/Search'
+import { Search } from './pages/Search'
 import { ChirpView } from './pages/ChirpView';
 
 function App() {
