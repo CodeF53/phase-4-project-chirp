@@ -124,3 +124,40 @@ textarea.chirp_editor_text {
 .chirpControl > button > svg {
   height: 1rem;
 }
+
+/* big chirp */
+.bigChirp > .chirp_text {
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+.bigChirp > .date_stats {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-2);
+  gap: .25rem;
+}
+
+.bigChirp > .interaction_stats {
+  font-size: 0.8rem;
+  padding: 1rem;
+  border-bottom: var(--chirp-outline-color) solid 1px;
+  border-top: var(--chirp-outline-color) solid 1px;
+  gap: .5rem;
+}
+.bigChirp > .interaction_stats > .stat {
+  color: var(--text-2);
+  gap: .25rem;
+}
+.bigChirp > .interaction_stats > .stat > .statNum {
+  font-weight: bold;
+  color: var(--text-1);
+}
+.bigChirp > .chirp_controls_footer {
+  margin: .5rem;
+  width: 100%;
+}
+.bigChirp > .chirp_controls_footer > button > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}

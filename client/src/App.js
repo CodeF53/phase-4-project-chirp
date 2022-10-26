@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { LoginSignup } from './pages/LoginSignup';
 import { User } from './pages/User';
 import {Search} from './pages/Search'
+import { ChirpView } from './pages/ChirpView';
 
 function App() {
   // persistent user through local storage
@@ -45,6 +46,7 @@ function App() {
       <Header user={user} logOut={()=>setUser(null)}/>
 
       <div id='page' className='chirpWidth'><Routes>
+        <Route path="/chirp/:id" element={<ChirpView current_user={user}/>}/>
         <Route path="/:username" element={<User current_user={user}/>}/>
         <Route path="/" element={<Home current_user={user}/>}/>
         <Route path="/search" element={<Search current_user={user}/>}/>
