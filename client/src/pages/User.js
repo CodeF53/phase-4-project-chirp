@@ -8,7 +8,7 @@ export function User({current_user}) {
   const [userData, setUserData] = useState({chirp_ids:[], follower_ids:[], followed_user_ids: []})
   const { username } = useParams()
 
-  const fetchUserData = ()=> fetch(`user/${username}`)
+  const fetchUserData = ()=> fetch(`/user/${username}`)
     .then(r=>r.json()).then(data=>{ setUserData(data) })
 
   useEffect(() => { fetchUserData() }, [username])
