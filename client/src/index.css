@@ -99,6 +99,7 @@ h1,h2,h3,h4,h5,p,span {
   z-index: 100;
 }
 .popup > button {
+  background-color: var(--background-color);
   display: flex;
   flex-direction: row;
   text-align: left;

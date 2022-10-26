@@ -10,6 +10,7 @@ import {ReactComponent as ShareSvg} from '../assets/share.svg';
 import {ReactComponent as MoreControlsSvg} from '../assets/more_controls.svg';
 import {ReactComponent as TrashSvg} from '../assets/trash.svg';
 import {ReactComponent as FlagSvg} from '../assets/flag.svg';
+import {ReactComponent as LinkSvg} from '../assets/link.svg';
 
 import { ChirpEditorModal } from "./ChirpEditorModal";
 import { TextRenderer } from "./TextRenderer";
@@ -152,6 +153,7 @@ export function LargeChirp({id, chirp, fetchChirp, current_user, addChirp, remov
 
 function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, fetchChirp, removeChirp, rechirp_id, showCounts, extraSpacers}) {
   const [showReplyEditor, setShowReplyEditor] = useState(false)
+  const [copyLinkPopup, setCopyLinkPopup] = useState(false)
 
   const isChirpLiked = chirp.like_user_ids.includes(current_user.id)
   const isChirpRechirped = chirp.rechirp_user_ids.includes(current_user.id)
@@ -194,7 +196,10 @@ function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, f
     </button>
 
     <div className="spacer"/>
-    <button><ShareSvg/></button>
+    <button onClick={(e)=>{e.stopPropagation();setCopyLinkPopup(true);}}>
+      <ShareSvg/>
+      {copyLinkPopup && <CopyLinkPopup disable_self={()=>setCopyLinkPopup(false)} id={id}/>}
+    </button>
     <div className="spacer"/>
 
     {showReplyEditor?<ChirpEditorModal current_user={current_user} reply_chirp_id={id} exit={()=>{setShowReplyEditor(false)}} addChirp={addChirp}/>:null}
@@ -206,6 +211,14 @@ function MoreControlPopup({disable_self, ownsChirp, deleteThing}) {
     <div className="chirpControl popup col">
       {ownsChirp && <button className="delete" onClick={deleteThing}><TrashSvg/>Delete</button>}
       <button><FlagSvg/>Report</button>
+    </div>
+  </ClickAwayListener>
+}
+
+function CopyLinkPopup({disable_self, id}) {
+  return <ClickAwayListener onClickAway={disable_self}>
+    <div className="chirpControl popup col">
+      <button onClick={(e)=>{e.stopPropagation(); navigator.clipboard.writeText(window.location.href.split("/").slice(0,3).join("/")+"/chirp/"+id)}}><LinkSvg/>Copy link to Chirp</button>
     </div>
   </ClickAwayListener>
 }
