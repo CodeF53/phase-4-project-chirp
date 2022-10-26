@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 import '../style/header.css';
@@ -12,17 +12,15 @@ import {ReactComponent as ProfileFilledSvg} from '../assets/header/profilefilled
 import ClickAwayListener from "react-click-away-listener";
 
 export function Header({user, logOut}) {
-  let {paramaters} = useParams()
   const [path, setPath] = useState("")
-  console.log('path', path)
   const [LogoutPopup, setLogoutPopup] = useState(false)
 
-  return <header className="header col" onClick={()=>setPath(window.location.href.split('/').slice(-1)[0])}>
-    <Link to="/"><button aria-label="home" >{path.length < 1 ? <HomeFilledSvg/>:<HomeSvg/>}</button></Link>
+  return <header className="header col" onClick={()=>setPath(window.location.href.split('/').slice(3)[0])}>
+    <Link to="/"><button aria-label="home" >{path[0]? <HomeSvg/>:<HomeFilledSvg/>}</button></Link>
     <Link to="/search"><button aria-label="search">{path === "search" ? <SearchFilledSvg/>:<SearchSvg/>}</button></Link>
     {/* <button aria-label="notifications"></button> */}
     {/* <button aria-label="messages"></button> */}
-    <Link to={user.username}><button aria-label="profile">{path !== "" && path !== "search" ? <ProfileFilledSvg/>:<ProfileSvg/>}</button></Link>
+    <Link to={user.username}><button aria-label="profile">{path !== "" && path !== "search" && path !== "chirp" ? <ProfileFilledSvg/>:<ProfileSvg/>}</button></Link>
     <div className="spacer"/>
     <button onClick={()=>{setLogoutPopup(true)}}><img src={user.icon} alt="your icon"/></button>
 
