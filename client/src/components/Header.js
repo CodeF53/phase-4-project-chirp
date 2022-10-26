@@ -9,7 +9,6 @@ import {ReactComponent as ProfileSvg} from '../assets/header/profile.svg';
 import {ReactComponent as HomeFilledSvg} from '../assets/header/homefilled.svg';
 import {ReactComponent as SearchFilledSvg} from '../assets/header/searchfilled.svg';
 import {ReactComponent as ProfileFilledSvg} from '../assets/header/profilefilled.svg';
-import { useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
 
 export function Header({user, logOut}) {
@@ -19,7 +18,7 @@ export function Header({user, logOut}) {
   const [LogoutPopup, setLogoutPopup] = useState(false)
 
   return <header className="header col" onClick={()=>setPath(window.location.href.split('/').slice(-1)[0])}>
-    <Link to="/"><button aria-label="home" >{path === ""? <HomeFilledSvg/>:<HomeSvg/>}</button></Link>
+    <Link to="/"><button aria-label="home" >{path.length < 1 ? <HomeFilledSvg/>:<HomeSvg/>}</button></Link>
     <Link to="/search"><button aria-label="search">{path === "search" ? <SearchFilledSvg/>:<SearchSvg/>}</button></Link>
     {/* <button aria-label="notifications"></button> */}
     {/* <button aria-label="messages"></button> */}
