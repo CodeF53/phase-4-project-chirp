@@ -130,9 +130,7 @@ export function LargeChirp({id, chirp, fetchChirp, current_user, addChirp, remov
     <ChirpImages image_urls={chirp.image_urls}/>
 
     <div className="date_stats row">
-      <span>TODO:ADD_TIME</span>
-      <span className="chirp_spacer">·</span>
-      <span>TODO:ADD_DATE</span>
+      <span>{ dayjs(chirp.unix_created).fromNow() }</span>
       <span className="chirp_spacer">·</span>
       <span>{chirp.user.display_name}</span>
     </div>
