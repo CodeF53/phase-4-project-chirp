@@ -1,6 +1,7 @@
 import { useState } from "react";
 import '../style/profile.css';
 import { ProfileEditor } from "./ProfileEditor";
+import { TextRenderer } from "./TextRenderer";
 
 export function Profile ({userData, current_user, toggleEdit, fetchUserData}) {
   const [showEditorModal, setShowEditorModal] = useState(false)
@@ -26,8 +27,8 @@ export function Profile ({userData, current_user, toggleEdit, fetchUserData}) {
     <div className="bio_container col">
       <h1 className="display_name">{userData.display_name}</h1>
       <h2 className="username">@{userData.username} {isFollowingYou && <span className="followsYou">follows you</span>}</h2>
-      {userData.bio && <p className="bio">{userData.bio}</p>}
-      {userData.website && <a className="website" href={userData.website}>{userData.website.split("https://").slice(-1)[0]}</a>}
+      {userData.bio && <TextRenderer className="bio" value={userData.bio}/>}
+      {userData.website && <a className="website link" href={userData.website}>{userData.website.split("https://").slice(-1)[0]}</a>}
       {userData.birthday>0 && <p className="birthday">Born on {userData.birthday}</p>}
       {userData.follower_ids && <div className="row">
         <p className="follows">{userData.follower_ids.length} Followers</p>
