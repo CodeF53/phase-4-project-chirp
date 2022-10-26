@@ -45,8 +45,8 @@ export function ChirpEditor({current_user, addChirp, reply_chirp_id, placeholder
     // we cant use the normal json for file uploads
     const formData = new FormData()
     formData.append('text', chirpText)
-    formData.append('reply_chirp_id', reply_chirp_id)
-    formData.append('images', attachments)
+    if (reply_chirp_id) formData.append('reply_chirp_id', reply_chirp_id)
+    attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
 
     fetch("chirps", {
       method: "POST",

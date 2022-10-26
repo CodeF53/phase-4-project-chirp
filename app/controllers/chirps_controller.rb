@@ -13,9 +13,7 @@ class ChirpsController < ApplicationController
 
   # POST /chirps
   def create
-    chirp = Chirp.create(chirp_params)
-    chirp.update!(user: @current_user)
-    chirp.save!
+    chirp = Chirp.create!(text: params[:text], reply_chirp_id: params[:reply_chirp_id], images: params[:images], user: @current_user)
 
     render json: chirp, status: :created
   end
@@ -65,7 +63,8 @@ class ChirpsController < ApplicationController
   private
 
   def chirp_params
-    params.permit(:text, reply_chirp_id: nil, images: [])
+    defaults = { reply_chirp_id: nil, images: [] }
+    params.permit(:text, :reply_chirp_id, :images).reverse_merge(defaults)
   end
 
   # Use callbacks to share common setup or constraints between actions.
