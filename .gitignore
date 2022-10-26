@@ -22,6 +22,8 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
-
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# ignore our storage
+/storage

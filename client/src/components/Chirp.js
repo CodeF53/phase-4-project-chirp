@@ -95,9 +95,7 @@ function Chirp({id, chirp, fetchChirp, current_user, disable_reply, showReplyNub
           {moreControlPopup && <MoreControlPopup disable_self={(e)=>{e.stopPropagation();setMoreControlPopup(false)}} ownsChirp={ownsChirp} deleteThing={()=>fetch(`chirps/${id}`, { method: "DELETE" }).then(r=>{if(r.ok){fetchChirp(); removeChirp(id)}})}/>}
         </div>
         <TextRenderer className="chirp_text" value={chirp.text}/>
-        <div className="chirp_attachment">
-
-        </div>
+        <ChirpImages image_urls={chirp.image_urls}/>
         <ChirpControlFooter chirp={chirp} disable_reply={disable_reply} current_user={current_user} id={id} addChirp={addChirp} fetchChirp={fetchChirp} removeChirp={removeChirp} rechirp_id={rechirp_id} showCounts={true}/>
       </div>
     </div>
@@ -126,6 +124,8 @@ export function LargeChirp({id, chirp, fetchChirp, current_user, addChirp, remov
     </div>
 
     <TextRenderer className="chirp_text large" value={chirp.text}/>
+
+    <ChirpImages image_urls={chirp.image_urls}/>
 
     <div className="date_stats row">
       <span>TODO:ADD_TIME</span>
@@ -221,4 +221,41 @@ function CopyLinkPopup({disable_self, id}) {
       <button onClick={(e)=>{e.stopPropagation(); navigator.clipboard.writeText(window.location.href.split("/").slice(0,3).join("/")+"/chirp/"+id)}}><LinkSvg/>Copy link to Chirp</button>
     </div>
   </ClickAwayListener>
+}
+
+function ChirpImages({ image_urls }) {
+  switch (image_urls.length) {
+    case 1:
+      return <div className="chirp_images chirp_images_1">
+        <img src={image_urls[0]} alt="eat my meaningful text"/>
+      </div>
+    case 2:
+      return <div className="chirp_images chirp_images_2 row">
+        <img src={image_urls[0]} alt="eat my meaningful text"/>
+        <img src={image_urls[1]} alt="eat my meaningful text"/>
+      </div>
+    case 3:
+      return <div className="chirp_images chirp_images_3 col">
+        <div className="row">
+          <img src={image_urls[0]} alt="eat my meaningful text"/>
+          <img src={image_urls[1]} alt="eat my meaningful text"/>
+        </div>
+        <div className="row">
+          <img src={image_urls[2]} alt="eat my meaningful text"/>
+        </div>
+      </div>
+    case 4:
+      return <div className="chirp_images chirp_images_4">
+        <div className="row">
+          <img src={image_urls[0]} alt="eat my meaningful text"/>
+          <img src={image_urls[1]} alt="eat my meaningful text"/>
+        </div>
+        <div className="row">
+          <img src={image_urls[2]} alt="eat my meaningful text"/>
+          <img src={image_urls[3]} alt="eat my meaningful text"/>
+        </div>
+      </div>
+    default:
+      return null
+  }
 }

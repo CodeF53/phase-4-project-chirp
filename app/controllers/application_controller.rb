@@ -9,9 +9,9 @@ class ApplicationController < ActionController::API
   private
 
   def authorize
-    # @current_user = User.find_by(id: session[:user_id])
+    @current_user = User.find_by(id: session[:user_id])
     # ! TEMP "ADMIN" ACCOUNT THAT SKIPS AUTH
-    @current_user = User.find_by(id: 1)
+    # @current_user = User.find_by(id: 1)
 
     render json: { errors: ['Not authorized'] }, status: :unauthorized unless @current_user
   end
@@ -21,6 +21,7 @@ class ApplicationController < ActionController::API
   end
 
   def not_found_response(exception)
+    puts exception
     render json: { error: "#{exception.model} not found" }, status: :not_found
   end
 end
