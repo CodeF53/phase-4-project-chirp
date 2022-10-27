@@ -6,12 +6,16 @@
 
 .profile > .banner {
   position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
   width: var(--chirp-width);
   height: 12rem;
 }
 .profile > .banner > .icon {
   position: absolute;
   width: 8rem;
+  height: 8rem;
+  object-fit: cover;
   border-radius: 100000rem;
 
   bottom: -4rem;

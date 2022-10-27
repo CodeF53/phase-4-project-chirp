@@ -26,8 +26,11 @@
 }
 .chirp_icon_container img {
   max-width: 100%;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 100%;
   aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .chirp_content_container {
@@ -190,10 +193,12 @@ textarea.chirp_editor_text {
 .chirp_images {
   width: calc(100% - 2rem);
   margin: 1rem;
+  gap: 1rem;
 }
 .chirp_images img {
   width: 100%;
   border-radius: 1rem;
+  object-fit: cover;
 }
 .chirp_images_2, .chirp_images_3, .chirp_images_3 > div, .chirp_images_4 > div {
   gap: 1rem;

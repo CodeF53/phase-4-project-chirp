@@ -208,7 +208,7 @@ function ChirpControlFooter({chirp, disable_reply, current_user, id, addChirp, f
 
 function MoreControlPopup({disable_self, ownsChirp, deleteThing}) {
   return <ClickAwayListener onClickAway={disable_self}>
-    <div className="chirpControl popup col">
+    <div className="chirpControl popup col" onClick={e=>e.stopPropagation()}>
       {ownsChirp && <button className="delete" onClick={deleteThing}><TrashSvg/>Delete</button>}
       <button><FlagSvg/>Report</button>
     </div>
@@ -245,7 +245,7 @@ function ChirpImages({ image_urls }) {
         </div>
       </div>
     case 4:
-      return <div className="chirp_images chirp_images_4">
+      return <div className="chirp_images chirp_images_4 col">
         <div className="row">
           <img src={image_urls[0]} alt="eat my meaningful text"/>
           <img src={image_urls[1]} alt="eat my meaningful text"/>
