@@ -13,6 +13,13 @@ export function User({current_user}) {
   // eslint-disable-next-line
   useEffect(() => { fetchUserData() }, [username])
 
+  // ! temporary "live" (every 5 second) updating
+  useEffect(() => {
+    const interval = setInterval(fetchUserData, 5000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, []);
+
   return <div>
     <Heading text={username} showBackButton={true} showChirpCount={true} chirpCount={userData.chirp_ids.length}/>
     <Profile userData={userData} current_user={current_user} fetchUserData={fetchUserData}/>

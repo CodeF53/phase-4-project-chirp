@@ -13,7 +13,14 @@ export function ChirpView({ current_user }) {
   const fetchChirp = ()=>{ fetch(`/chirps/${id}`).then(r=>r.json())
     .then(data=>{ setChirp(data); setReply_ids(data.reply_ids) })}
   // eslint-disable-next-line
-  useEffect(() => { fetchChirp() }, [])
+  useEffect(() => { fetchChirp() }, [id])
+
+  // ! temporary "live" (every 5 second) updating
+  useEffect(() => {
+    const interval = setInterval(fetchChirp, 5000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line
+  }, []);
 
   const removeChirp = chirp_id => setReply_ids(reply_ids.filter(id=>id!==chirp_id))
   const addChirp = chirp_id => setReply_ids([chirp_id, ...reply_ids])
